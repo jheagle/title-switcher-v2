@@ -7,12 +7,10 @@ Requires titles to be listed as elements
 inside a div, one of the title elements
 needs to have class "displayTitle".
 **********************************************/
-var currentClass = 'displayTitle';
-var titles = [];
-var TitleSwitcher = function (currentClass, titlesContainer) {
-	this.currentClass = currentClass;
-	this.titlesContainer = titlesContainer;
-	this.titles = titlesContainer.children();
+var TitleSwitcher = function (titlesContainer) {
+	this.currentClass = 'displayTitle';
+	this.titlesContainer = $(titlesContainer);
+	this.titles = $(titlesContainer).children();
 	this.typeSurface = {};
 	this.isRandom = false;
 	this.delaySwitch = 400;
