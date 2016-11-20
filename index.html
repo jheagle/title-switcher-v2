@@ -12,65 +12,43 @@
 				min-width: 340px;
 				margin: 0 auto;
 			}
-			.titles, .title-switcher {
+			.titles, .titles-random {
 				margin: 0;
 				height: 50%;
 				padding: 50px 15px;
 			}
-			.titles h4, .title-switcher h4 {
-				display: block;
-				min-height: 18px;
-			}
-			
-			/* v  Include the below styles  v */
-			.title {
+			.titles h4, .titles-random h4 {
 				display: none;
-			}
-			
-			.displayTitle {
-				display: block;
+				min-height: 18px;
 			}
 		</style>
     </head>
     <body>
 		<div class="container">
-		    <div class='titles'>
-				<h4 class="hideTitle displayTitle">Innovate</h4>
-				<h4 class="hideTitle">Create</h4>
-				<h4 class="hideTitle">Connect</h4>
-				<h4 class="hideTitle">Socialise</h4>
-				<h4 class="hideTitle">Collaborate</h4>
-				<h4 class="hideTitle">Build</h4>
-				<h4 class="hideTitle">Organise</h4>
-				<h4 class="hideTitle">Broadcast</h4>
+		  <div class='titles-random'>
+				<h4>Innovate</h4>
+				<h4>Create</h4>
+				<h4>Connect</h4>
+				<h4>Socialise</h4>
+				<h4>Collaborate</h4>
+				<h4>Build</h4>
+				<h4>Organise</h4>
+				<h4>Broadcast</h4>
 			</div>
-			<div class="title-switcher">
-                <h4 class="hideTitle displayTitle" style='color: #be1010; text-align: center;'>I built this <em>superb</em> <strong>plug-in</strong>.</h4>
-				<h4 class="hideTitle" style='color: #1414af; text-align: right;'><strong>TitleSwitcher</strong> is great to display <em>company objectives</em>.</h4>
-				<h4 class="hideTitle" style='color: #ff7816; text-align: center; text-decoration: underline;'>Feel free to contribute and use this plug-in.</h4>
-				<h4 class="hideTitle" style='color: #0c710c;'>You can find more projects on <a href='https://github.com/jheagle' target='_blank'>my <strong>GitHub</strong></a>.</h4>
+			<div class="titles">
+        <h4 style='color: #be1010; text-align: center;'>I built this <em>superb</em> <strong>plug-in</strong>.</h4>
+				<h4 style='color: #1414af; text-align: right;'><strong>TitleSwitcher</strong> is great to display <em>company objectives</em>.</h4>
+				<h4 style='color: #ff7816; text-align: center; text-decoration: underline;'>Feel free to contribute and use this plug-in.</h4>
+				<h4 style='color: #0c710c;'>You can find more projects on <a href='https://github.com/jheagle' target='_blank'>my <strong>GitHub</strong></a>.</h4>
 			</div>
 		</div>
-        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script>
-            window.jQuery || document.write("<script src='js/vendor/jquery-2.1.4.min.js'><\/script>");
-        </script>
-        <script src="js/title-switcher.min.js"></script>
+    <script src="js/title-switcher.min.js"></script>
 		<script>
-			/* v  place custom jQuery below to instantiate the titleClass  v */
-			var currentClass = 'displayTitle'; // declare class to search for (displayTitle is currently the default)
-			$('.' + currentClass).each(function(i, titleClass){ // For more than one instance use this loop...
-				var title = new TitleSwitcher(currentClass, $(titleClass).parent());
-				titles.push(title);
-			});
-			//var title = new TitleSwitcher(currentClass, $('.' + currentClass).parent());// ...Otherwise just create one with this command
-			$.each(titles, function(i, title){ // use the startTitles function to begin initialize the titleSwitcher
-				if (title.titlesContainer.hasClass('title-switcher')){
-					title.startTitles(false, 400, 100); // the first arguments is to not randomly switch, then the time between switching, and finally the delay of the effect (typing in this case)
-				}else{
-					title.startTitles(true); // set to random title switching, then defaults are 400 and 200 milliseconds for switch/effects
-				}
-			});
+			/* v  place custom JavaScript below to instantiate the titleClass  v */
+      var randomTitles = new TitleSwitcher('.titles-random', 'typingEffect');
+      var orderedTitles = new TitleSwitcher('.titles', 'typingEffect');
+      randomTitles.startTitles({isRandom: true}); // set to random title switching, then defaults are 400 and 200 milliseconds for switch/effects
+      orderedTitles.startTitles({isRandom: false, delaySwitch: 400, delayEffect: 100}); // the first arguments is to not randomly switch, then the time between switching, and finally the delay of the effect (typing in this case)
 		</script>
     </body>
 </html>
