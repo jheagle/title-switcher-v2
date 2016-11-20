@@ -20,23 +20,23 @@ var TitleSwitcher = function (titlesContainer, switchStyle) {
 	*/
   this.startTitles = function (settings) {
 		var settings = settings || {};
+    var typeSurface = 'typeSurface';
+		this.currentIndex = 0;
 		this.delaySwitch = settings.delaySwitch || 400;
 		this.delayEffect = settings.delayEffect || 200;
 		this.isRandom = settings.isRandom || false;
 		this.active = true;
-		let currentIndex = 0;
 		if (this.isRandom) {
-      currentIndex = Math.round(Math.random() * (this.titles.length - 2)) + 1;
+      this.currentIndex = Math.round(Math.random() * (this.titles.length - 2)) + 1;
     }
-    let typeSurface = 'typeSurface';
-    let currentTitle = this.titles[currentIndex];
+    var currentTitle = this.titles[this.currentIndex];
     if (currentTitle.classList) {
       currentTitle.classList.add(this.currentClass);
     } else {
       currentTitle.className += ' ' + this.currentClass;
     }
-    let self = this;
-    let typeElement = this.titles[0].cloneNode(true);
+    var self = this;
+    var typeElement = this.titles[0].cloneNode(true);
     if (typeElement.classList) {
       typeElement.classList.add(typeSurface);
     } else {
@@ -79,9 +79,9 @@ var TitleSwitcher = function (titlesContainer, switchStyle) {
 	*/
   this.switchTitle = function (currentTitle, callBackFunction, self) {
     var self = self || this;
-		let currentIndex = 1;
-		let size = self.titles.length;
-		for (let i = 1; i < size; ++i){
+		var currentIndex = 1;
+		var size = self.titles.length;
+		for (var i = 1; i < size; ++i){
 			if (self.titles[i] === currentTitle){
 				currentIndex = i;
 				break;
@@ -91,8 +91,8 @@ var TitleSwitcher = function (titlesContainer, switchStyle) {
 			self.currentIndex = currentIndex;
 			return self;
 		}
-    let maxIndex = self.titles.length - 1;
-    let nextIndex = 1;
+    var maxIndex = self.titles.length - 1;
+    var nextIndex = 1;
     if (maxIndex === 1) {
       return callBackFunction(currentTitle, self.switchTitle, self);
     }
@@ -144,9 +144,9 @@ TitleSwitcher.prototype.cursorBlink = function (blinkOn, self) { // display curs
 */
 TitleSwitcher.prototype.typingEffect = function (domObject, callBackFunction, self) {
 	var self = self || this;
-	let size = self.titles.length;
-	let currentIndex = 0;
-	for (let i = 1; i < size; ++i){
+	var size = self.titles.length;
+	var currentIndex = 0;
+	for (var i = 1; i < size; ++i){
 		if (self.titles[i] === domObject){
 			currentIndex = i;
 			break;
@@ -154,8 +154,8 @@ TitleSwitcher.prototype.typingEffect = function (domObject, callBackFunction, se
 	}
   var domObject = domObject || self.titles[currentIndex + 1];
   var callBackFunction = callBackFunction || self.switchStyle;
-  let blinkOn = true;
-  let numBlinks = 4;
+  var blinkOn = true;
+  var numBlinks = 4;
   if (self.typeSurface.hasAttribute('style')) {
     self.typeSurface.removeAttribute('style');
   }
@@ -165,7 +165,7 @@ TitleSwitcher.prototype.typingEffect = function (domObject, callBackFunction, se
   self.typeSurface.innerHTML = '';
 	self.typeSurface.style.display = 'block';
 
-  for (let i = 0; i < numBlinks; ++i) {
+  for (var i = 0; i < numBlinks; ++i) {
     setTimeout(function () {
       self.cursorBlink(blinkOn, self);
       blinkOn = !blinkOn;
@@ -181,7 +181,7 @@ TitleSwitcher.prototype.typingEffect = function (domObject, callBackFunction, se
         // Replace html with old html on last letter
         if (domObject.textContent + '|' === self.typeSurface.textContent) {
           self.typeSurface.innerHTML = domObject.innerHTML + '<span style="font-weight: normal; color: black; text-decoration: none">&#124;</span>';
-          for (let j = 0; j < numBlinks * 2; ++j) {
+          for (var j = 0; j < numBlinks * 2; ++j) {
             setTimeout(function () {
               --j;
               self.cursorBlink(blinkOn, self);
