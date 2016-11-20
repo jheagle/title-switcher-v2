@@ -24,3 +24,5 @@ Changes from 2.0.1 to 2.1.0
 - Added pause and resume functions.
 - Separate cursorBlink and typingEffect out of the main TitleSwitcher class body to indicate that these are defaults but not core functions.
 - Replace arguments for startTitles with a settings object for clearer implementation.
+
+Live example at http://projects.joshuaheagle.com/js/title-switcher. Enjoy!
