@@ -8,21 +8,23 @@ inside a div, pass the class of the div as an
 agrumenet to TitleSwitcher.
 **********************************************/
 var TitleSwitcher = function (titlesContainer, switchStyle) {
-	switchStyle = switchStyle || 'typingEffect';
+	var switchStyle = switchStyle || 'typingEffect';
   this.currentClass = 'displayTitle';
   this.switchStyle = this[typeof this[switchStyle] === 'function' ? switchStyle : 'typingEffect'];
-  this.titlesContainer = document.querySelectorAll( titlesContainer )[ 0 ];
+  this.titlesContainer = document.querySelectorAll(titlesContainer)[ 0 ];
   this.titles = this.titlesContainer.children;
-  this.typeSurface = {};
-  this.isRandom = false;
-  this.delaySwitch = 400;
-  this.delayEffect = 200;
+	this.active = false;
 
+  /**
+	* This is the function to begin the switching titles
+	*/
   this.startTitles = function (settings) {
+		var settings = settings || {};
 		this.delaySwitch = settings.delaySwitch || 400;
 		this.delayEffect = settings.delayEffect || 200;
 		this.isRandom = settings.isRandom || false;
-		var currentIndex = 0;
+		this.active = true;
+		let currentIndex = 0;
 		if (this.isRandom) {
       currentIndex = Math.round(Math.random() * (this.titles.length - 2)) + 1;
     }
@@ -43,7 +45,7 @@ var TitleSwitcher = function (titlesContainer, switchStyle) {
     if (typeElement.classList) {
       typeElement.classList.remove(this.currentClass);
     } else {
-      typeElement.className = typeElement.className.replace(new RegExp( '(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi' ), ' ');
+      typeElement.className = typeElement.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi' ), ' ');
     }
     this.titlesContainer.insertBefore(typeElement, this.titlesContainer.firstChild);
     this.typeSurface = this.titlesContainer.querySelectorAll('.' + typeSurface)[0];
@@ -55,6 +57,26 @@ var TitleSwitcher = function (titlesContainer, switchStyle) {
     self.switchStyle(currentTitle, this.switchTitle, this);
   };
 
+	/**
+	* This is the function to pause between switching
+	*/
+	this.pause = function (){
+		this.active = false;
+	}
+
+	/**
+	* This is the function to resume after a pause.
+	*/
+	this.resume = function (){
+		if (!this.active){
+			this.active = true;
+			this.switchTitle(this.titles[this.currentIndex], this.switchStyle, this);
+		}
+	}
+
+  /**
+	* This is the core function for swtiching titles
+	*/
   this.switchTitle = function (currentTitle, callBackFunction, self) {
     var self = self || this;
 		let currentIndex = 1;
@@ -64,6 +86,10 @@ var TitleSwitcher = function (titlesContainer, switchStyle) {
 				currentIndex = i;
 				break;
 			}
+		}
+		if(!self.active){
+			self.currentIndex = currentIndex;
+			return self;
 		}
     let maxIndex = self.titles.length - 1;
     let nextIndex = 1;
@@ -98,6 +124,9 @@ var TitleSwitcher = function (titlesContainer, switchStyle) {
   };
 }
 
+/**
+* This is a helper function to improve the default 'typingEffect'
+*/
 TitleSwitcher.prototype.cursorBlink = function (blinkOn, self) { // display cursor effect
 	var self = self || this;
   if (blinkOn) {
@@ -108,6 +137,11 @@ TitleSwitcher.prototype.cursorBlink = function (blinkOn, self) { // display curs
   };
 };
 
+/**
+* This is the default and example of an effect being implemented when Titles are switched
+* These functions take the currentElement in focus, the switchTitle function as a callback
+* and an instance of the TitleSwitcher
+*/
 TitleSwitcher.prototype.typingEffect = function (domObject, callBackFunction, self) {
 	var self = self || this;
 	let size = self.titles.length;
