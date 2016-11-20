@@ -42,17 +42,13 @@
 				<h4 style='color: #0c710c;'>You can find more projects on <a href='https://github.com/jheagle' target='_blank'>my <strong>GitHub</strong></a>.</h4>
 			</div>
 		</div>
-        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script>
-            window.jQuery || document.write("<script src='js/vendor/jquery-2.1.4.min.js'><\/script>");
-        </script>
-        <script src="js/title-switcher.js"></script>
+    <script src="js/title-switcher.js"></script>
 		<script>
-			/* v  place custom jQuery below to instantiate the titleClass  v */
-      var randomTitles = new TitleSwitcher('.titles-random');
-      var orderedTitles = new TitleSwitcher('.titles');
-      randomTitles.startTitles(true); // set to random title switching, then defaults are 400 and 200 milliseconds for switch/effects
-      orderedTitles.startTitles(false, 400, 100); // the first arguments is to not randomly switch, then the time between switching, and finally the delay of the effect (typing in this case)
+			/* v  place custom JavaScript below to instantiate the titleClass  v */
+      var randomTitles = new TitleSwitcher('.titles-random', 'typingEffect');
+      var orderedTitles = new TitleSwitcher('.titles', 'typingEffect');
+      randomTitles.startTitles({isRandom: true}); // set to random title switching, then defaults are 400 and 200 milliseconds for switch/effects
+      orderedTitles.startTitles({isRandom: false, delaySwitch: 400, delayEffect: 100}); // the first arguments is to not randomly switch, then the time between switching, and finally the delay of the effect (typing in this case)
 		</script>
     </body>
 </html>
