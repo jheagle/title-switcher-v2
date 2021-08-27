@@ -1,0 +1,24 @@
+{
+  "name": "title-switcher",
+  "version": "1.0.1",
+  "description": "Add typing effect to titles and also switch through several titles.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "build": "uglifyjs index.js -o index.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jheagle/title-switcher-v2.git"
+  },
+  "author": "Joshua Heagle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jheagle/title-switcher-v2/issues"
+  },
+  "homepage": "https://github.com/jheagle/title-switcher-v2#readme",
+  "devDependencies": {
+    "jest": "^27.0.6",
+    "uglify-js": "^3.14.1"
+  }
+}

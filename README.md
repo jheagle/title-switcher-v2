@@ -1,8 +1,7 @@
-title-switcher-v2.1.0
+title-switcher-v2
 ==============
 
-This is the updated title-switcher which takes a more object-oriented
-approach and improves many deficiencies of the original title-switcher.
+This is the updated title-switcher which takes a simpler approach and improves many deficiencies of the original title-switcher.
 
 Add typing effect to titles and also switch through several titles.
 
@@ -18,11 +17,4 @@ NO need for any additional library, this runs as is. Compatible in modern browse
 If there are any problems contact me, but set-up should be done based on
 the sample code for best results.
 
-Changes from 2.0.1 to 2.1.0
-- Remove all dependencies on jQuery, this is now written in pure JavaScript.
-- Remove jQuery libraries.
-- Added pause and resume functions.
-- Separate cursorBlink and typingEffect out of the main TitleSwitcher class body to indicate that these are defaults but not core functions.
-- Replace arguments for startTitles with a settings object for clearer implementation.
-
-Live example at http://projects.joshuaheagle.com/js/title-switcher. Enjoy!
+Live example at https://joshuaheagle.com/projects/title-switcher. Enjoy!
