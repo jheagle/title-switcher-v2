@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/jheagle/title-switcher-v2#readme",
   "devDependencies": {
-    "jest": "^27.0.6",
-    "uglify-js": "^3.14.1"
+    "jest": "^27.3.1",
+    "uglify-js": "^3.14.3"
   }
 }
