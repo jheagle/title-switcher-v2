@@ -6,17 +6,24 @@
  Title Switcher: to imitate typing and switch to different titles based on DOM.
  Requires titles to be listed as elements inside a div, pass the class of the div as an argument to TitleSwitcher.
  **********************************************/
+
+type switchTitleCallback = (domObject: HTMLElement | Element, callBackFunction: Function, self?: TitleSwitcher, runOnce?: boolean) => TitleSwitcher
+
+type switchStyleCallback = (domObject: HTMLElement | Element, callBackFunction: Function, self?: TitleSwitcher, runOnce?: boolean) => TitleSwitcher
+
 class TitleSwitcher {
-  #active = false
-  #currentClass = 'displayTitle'
-  #currentIndex = 0
-  #delayEffect = 200
-  #delaySwitch = 400
-  #isRandom = false
-  #switchStyle = 'typingEffect'
-  #titles = []
-  #titlesContainer = null
-  #typeSurface
+  #active: boolean = false
+  #currentClass: string = 'displayTitle'
+  #currentIndex: number = 0
+  #delayEffect: number = 200
+  #delaySwitch: number = 400
+  #isRandom: boolean = false
+  #titles: HTMLCollection | HTMLElement[] = []
+  #titlesContainer: HTMLElement | null = null
+  #switchStyle: switchTitleCallback
+  #typeSurface: HTMLElement | null
+  cursorBlink: (blinkOn: boolean, self: TitleSwitcher) => TitleSwitcher
+  typingEffect: switchTitleCallback
 
   /**
    * Instantiate this as a class to get an instance of TitleSwitcher
@@ -24,12 +31,18 @@ class TitleSwitcher {
    * @param {Function|string} [switchStyle='typingEffect'] - The function or function name for the effect to apply
    * @constructor
    */
-  constructor (titlesContainer = '', switchStyle = 'typingEffect') {
+  constructor (titlesContainer: string = '', switchStyle: switchTitleCallback | keyof TitleSwitcher | string = 'typingEffect') {
     this.#currentClass = 'displayTitle'
-    this.#switchStyle = this[typeof this[switchStyle] === 'function' ? switchStyle : 'typingEffect']
-    this.#titlesContainer = titlesContainer
+
+    if (typeof switchStyle === 'string') {
+      // @ts-ignore Obnoxious error "type 'string' can't be used to index type 'TitleSwitcher'"
+      this.#switchStyle = typeof this[switchStyle] === 'function' ? this[switchStyle] : this.typingEffect
+    } else {
+      this.#switchStyle = switchStyle
+    }
+    this.#titlesContainer = null
     this.#titles = []
-    const foundContainers = titlesContainer ? document.querySelectorAll(titlesContainer) : []
+    const foundContainers: any[] | NodeListOf<Element> = titlesContainer ? document.querySelectorAll(titlesContainer) : []
     if (foundContainers && foundContainers[0]) {
       this.#titlesContainer = foundContainers[0]
       this.#titles = this.#titlesContainer.children
@@ -40,7 +53,7 @@ class TitleSwitcher {
    * Retrieve active
    * @return {boolean}
    */
-  get active () {
+  get active (): boolean {
     return this.#active
   }
 
@@ -48,7 +61,7 @@ class TitleSwitcher {
    * Retrieve currentClass
    * @return {string}
    */
-  get currentClass () {
+  get currentClass (): string {
     return this.#currentClass
   }
 
@@ -56,7 +69,7 @@ class TitleSwitcher {
    * Retrieve currentIndex
    * @return {number}
    */
-  get currentIndex () {
+  get currentIndex (): number {
     return this.#currentIndex
   }
 
@@ -64,7 +77,7 @@ class TitleSwitcher {
    * Retrieve delayEffect
    * @return {number}
    */
-  get delayEffect () {
+  get delayEffect (): number {
     return this.#delayEffect
   }
 
@@ -72,23 +85,23 @@ class TitleSwitcher {
    * Retrieve delaySwitch
    * @return {number}
    */
-  get delaySwitch () {
+  get delaySwitch (): number {
     return this.#delaySwitch
   }
 
   /**
    * Retrieve switchStyle
-   * @return {string}
+   * @return {Function}
    */
-  get switchStyle () {
+  get switchStyle (): Function {
     return this.#switchStyle
   }
 
   /**
    * Retrieve list of titles DOM elements
-   * @return {Array|NodeList}
+   * @return {Array<HTMLElement>|HTMLCollection}
    */
-  get titles () {
+  get titles (): Array<HTMLElement> | HTMLCollection {
     return this.#titles
   }
 
@@ -96,7 +109,7 @@ class TitleSwitcher {
    * Retrieve typeSurface used
    * @return {HTMLElement|null}
    */
-  get typeSurface () {
+  get typeSurface (): HTMLElement | null {
     return this.#typeSurface
   }
 
@@ -109,7 +122,12 @@ class TitleSwitcher {
    * @param {boolean} [settings.immediatePause=false]
    * @returns {TitleSwitcher}
    */
-  startTitles ({ delaySwitch = 400, delayEffect = 200, isRandom = false, immediatePause = false } = {}) {
+  startTitles ({ delaySwitch = 400, delayEffect = 200, isRandom = false, immediatePause = false }: {
+    delaySwitch?: number;
+    delayEffect?: number;
+    isRandom?: boolean;
+    immediatePause?: boolean
+  } = {}): TitleSwitcher {
     const typeSurface = 'typeSurface'
     this.#delaySwitch = delaySwitch
     this.#delayEffect = delayEffect
@@ -129,7 +147,8 @@ class TitleSwitcher {
     } else {
       currentTitle.className += ' ' + this.#currentClass
     }
-    const typeElement = this.#titles[0].cloneNode(true)
+    // @ts-ignore The Node returned is of type Element, or it should be
+    const typeElement: Element = this.#titles[0].cloneNode(true)
     if (typeElement.classList) {
       typeElement.classList.add(typeSurface)
     } else {
@@ -141,10 +160,11 @@ class TitleSwitcher {
       typeElement.className = typeElement.className.replace(new RegExp('(^|\\b)' + typeElement.className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ')
     }
     this.#titlesContainer.insertBefore(typeElement, this.#titlesContainer.firstChild)
+    // @ts-ignore the returned Node is a type of HTMLElement
     this.#typeSurface = this.#titlesContainer.querySelectorAll('.' + typeSurface)[0]
     this.#typeSurface.innerHTML = ''
     this.#typeSurface.style.display = 'block'
-    Array.prototype.forEach.call(this.#titles, function (title) {
+    Array.prototype.forEach.call(this.#titles, function (title: HTMLElement) {
       title.style.display = 'none'
     })
     return this.switchTitle(this.#titles[this.#currentIndex], this.#switchStyle, this)
@@ -153,19 +173,20 @@ class TitleSwitcher {
   /**
    * This is the function to pause between switching
    */
-  pause () {
+  pause (): void {
     this.#active = false
   }
 
   /**
    * This is the function to resume after a pause.
    */
-  resume () {
+  resume (): void {
     if (!this.#active) {
       this.#active = true
       this.switchTitle(this.#titles[this.#currentIndex], this.#switchStyle, this)
     }
   }
+
 
   /**
    * This is the core function for switching titles
@@ -175,7 +196,7 @@ class TitleSwitcher {
    * @param {boolean} [runOnce=false]
    * @returns {TitleSwitcher}
    */
-  switchTitle (currentTitle, callBackFunction, self, runOnce = false) {
+  switchTitle (currentTitle: Element, callBackFunction: switchTitleCallback, self: this, runOnce: boolean = false): TitleSwitcher {
     self = self || this
     let currentIndex = 1
     const size = self.#titles.length
@@ -192,7 +213,7 @@ class TitleSwitcher {
     const maxIndex = self.#titles.length - 1
     let nextIndex = 1
     if (maxIndex === 1) {
-      return callBackFunction(currentTitle, self.switchTitle, self)
+      return callBackFunction(currentTitle, runOnce ? (): TitleSwitcher => self : self.switchTitle, self, runOnce)
     }
     if (self.#isRandom) {
       if (!self.typeSurface.textContent.trim()) {
@@ -218,7 +239,7 @@ class TitleSwitcher {
     } else {
       nextTitle.className += ' ' + self.currentClass
     }
-    return callBackFunction(nextTitle, runOnce ? () => null : self.switchTitle, self, runOnce)
+    return callBackFunction(nextTitle, runOnce ? (): TitleSwitcher => self : self.switchTitle, self, runOnce)
   }
 }
 
@@ -228,7 +249,8 @@ class TitleSwitcher {
  * @param {TitleSwitcher} self
  * @return {TitleSwitcher}
  */
-TitleSwitcher.prototype.cursorBlink = (blinkOn, self) => { // display cursor effect
+TitleSwitcher.prototype.cursorBlink = (blinkOn: boolean, self: TitleSwitcher): TitleSwitcher => {
+  // display cursor effect
   self = self || this
   if (blinkOn) {
     self.typeSurface.innerHTML = self.typeSurface.innerHTML.replace(/\||&nbsp;*(<\/span>)?$/, '$1').trim()
@@ -249,7 +271,7 @@ TitleSwitcher.prototype.cursorBlink = (blinkOn, self) => { // display cursor eff
  * @param {boolean} [runOnce=false]
  * @returns {TitleSwitcher}
  */
-TitleSwitcher.prototype.typingEffect = (domObject, callBackFunction, self, runOnce = false) => {
+TitleSwitcher.prototype.typingEffect = (domObject: HTMLElement | Element, callBackFunction: switchStyleCallback, self: TitleSwitcher, runOnce: boolean = false): TitleSwitcher => {
   self = self || this
   const size = self.titles.length
   let currentIndex = 0
@@ -260,7 +282,6 @@ TitleSwitcher.prototype.typingEffect = (domObject, callBackFunction, self, runOn
     }
   }
   domObject = domObject || self.titles[currentIndex + 1]
-  callBackFunction = callBackFunction || self.switchStyle
   let blinkOn = true
   const numBlinks = 4
   if (self.typeSurface.hasAttribute('style')) {
@@ -300,7 +321,7 @@ TitleSwitcher.prototype.typingEffect = (domObject, callBackFunction, self, runOn
               --j
               self.cursorBlink(blinkOn, self)
               if (j === 0) {
-                callBackFunction(domObject, () => null, self, runOnce)
+                callBackFunction(domObject, (): TitleSwitcher => self, self, runOnce)
                 // callBackFunction(domObject, runOnce ? () => null : self.switchStyle, self, runOnce)
               }
             }, j * self.delaySwitch)
@@ -315,7 +336,9 @@ TitleSwitcher.prototype.typingEffect = (domObject, callBackFunction, self, runOn
 export default TitleSwitcher
 
 if (this) {
+  // @ts-ignore 'this' is used in node as the global, and the key CAN be referenced by string
   this['TitleSwitcher'] = TitleSwitcher
 } else if (typeof window !== 'undefined') {
+  // @ts-ignore YES, we can use a string to add a property to Window
   window['TitleSwitcher'] = TitleSwitcher
 }

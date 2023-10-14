@@ -2,24 +2,14 @@
   1: [function (require, module, exports) {
     'use strict'
 
-    // Created by Joshua Heagle
-
-    /*********************************************
- Title Switcher: to imitate typing and switch to different titles based on DOM.
- Requires titles to be listed as elements inside a div, pass the class of the div as an argument to TitleSwitcher.
- **********************************************/
     require('core-js/modules/es.symbol.to-primitive.js')
     require('core-js/modules/es.date.to-primitive.js')
     require('core-js/modules/es.symbol.js')
     require('core-js/modules/es.symbol.description.js')
     require('core-js/modules/es.number.constructor.js')
-    require('core-js/modules/es.object.define-property.js')
     require('core-js/modules/es.symbol.iterator.js')
     function _typeof (o) { '@babel/helpers - typeof'; return _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function (o) { return typeof o } : function (o) { return o && typeof Symbol === 'function' && o.constructor === Symbol && o !== Symbol.prototype ? 'symbol' : typeof o }, _typeof(o) }
-    Object.defineProperty(exports, '__esModule', {
-      value: true
-    })
-    exports.default = void 0
+    require('core-js/modules/es.object.define-property.js')
     require('core-js/modules/es.regexp.exec.js')
     require('core-js/modules/es.string.replace.js')
     require('core-js/modules/es.regexp.constructor.js')
@@ -29,39 +19,37 @@
     require('core-js/modules/es.array.for-each.js')
     require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/es.string.trim.js')
-    require('core-js/modules/web.timers.js')
-    require('core-js/modules/esnext.async-iterator.for-each.js')
-    require('core-js/modules/esnext.iterator.constructor.js')
-    require('core-js/modules/esnext.iterator.for-each.js')
-    require('core-js/modules/web.dom-collections.for-each.js')
     require('core-js/modules/es.array.iterator.js')
     require('core-js/modules/es.string.iterator.js')
     require('core-js/modules/es.weak-map.js')
     require('core-js/modules/esnext.weak-map.delete-all.js')
     require('core-js/modules/web.dom-collections.iterator.js')
+    require('core-js/modules/web.timers.js')
+    require('core-js/modules/esnext.async-iterator.for-each.js')
+    require('core-js/modules/esnext.iterator.constructor.js')
+    require('core-js/modules/esnext.iterator.for-each.js')
+    require('core-js/modules/web.dom-collections.for-each.js')
     var _this = void 0
     function _classCallCheck (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
     function _defineProperties (target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor) } }
     function _createClass (Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, 'prototype', { writable: false }); return Constructor }
     function _toPropertyKey (arg) { var key = _toPrimitive(arg, 'string'); return _typeof(key) === 'symbol' ? key : String(key) }
     function _toPrimitive (input, hint) { if (_typeof(input) !== 'object' || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || 'default'); if (_typeof(res) !== 'object') return res; throw new TypeError('@@toPrimitive must return a primitive value.') } return (hint === 'string' ? String : Number)(input) }
-    function _classPrivateFieldInitSpec (obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value) }
-    function _checkPrivateRedeclaration (obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError('Cannot initialize the same private elements twice on an object') } }
-    function _classPrivateFieldGet (receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, 'get'); return _classApplyDescriptorGet(receiver, descriptor) }
-    function _classApplyDescriptorGet (receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver) } return descriptor.value }
-    function _classPrivateFieldSet (receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, 'set'); _classApplyDescriptorSet(receiver, descriptor, value); return value }
-    function _classExtractFieldDescriptor (receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError('attempted to ' + action + ' private field on non-instance') } return privateMap.get(receiver) }
-    function _classApplyDescriptorSet (receiver, descriptor, value) { if (descriptor.set) { descriptor.set.call(receiver, value) } else { if (!descriptor.writable) { throw new TypeError('attempted to set read only private field') } descriptor.value = value } }
-    var _active = /* #__PURE__ */new WeakMap()
-    var _currentClass = /* #__PURE__ */new WeakMap()
-    var _currentIndex = /* #__PURE__ */new WeakMap()
-    var _delayEffect = /* #__PURE__ */new WeakMap()
-    var _delaySwitch = /* #__PURE__ */new WeakMap()
-    var _isRandom = /* #__PURE__ */new WeakMap()
-    var _switchStyle = /* #__PURE__ */new WeakMap()
-    var _titles = /* #__PURE__ */new WeakMap()
-    var _titlesContainer = /* #__PURE__ */new WeakMap()
-    var _typeSurface = /* #__PURE__ */new WeakMap()
+    var __classPrivateFieldSet = void 0 && (void 0).__classPrivateFieldSet || function (receiver, state, value, kind, f) {
+      if (kind === 'm') throw new TypeError('Private method is not writable')
+      if (kind === 'a' && !f) throw new TypeError('Private accessor was defined without a setter')
+      if (typeof state === 'function' ? receiver !== state || !f : !state.has(receiver)) throw new TypeError('Cannot write private member to an object whose class did not declare it')
+      return kind === 'a' ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value
+    }
+    var __classPrivateFieldGet = void 0 && (void 0).__classPrivateFieldGet || function (receiver, state, kind, f) {
+      if (kind === 'a' && !f) throw new TypeError('Private accessor was defined without a getter')
+      if (typeof state === 'function' ? receiver !== state || !f : !state.has(receiver)) throw new TypeError('Cannot read private member from an object whose class did not declare it')
+      return kind === 'm' ? f : kind === 'a' ? f.call(receiver) : f ? f.value : state.get(receiver)
+    }
+    var _TitleSwitcher_active, _TitleSwitcher_currentClass, _TitleSwitcher_currentIndex, _TitleSwitcher_delayEffect, _TitleSwitcher_delaySwitch, _TitleSwitcher_isRandom, _TitleSwitcher_titles, _TitleSwitcher_titlesContainer, _TitleSwitcher_switchStyle, _TitleSwitcher_typeSurface
+    Object.defineProperty(exports, '__esModule', {
+      value: true
+    })
     var TitleSwitcher = /* #__PURE__ */(function () {
       /**
    * Instantiate this as a class to get an instance of TitleSwitcher
@@ -73,57 +61,31 @@
         var titlesContainer = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ''
         var switchStyle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'typingEffect'
         _classCallCheck(this, TitleSwitcher)
-        _classPrivateFieldInitSpec(this, _active, {
-          writable: true,
-          value: false
-        })
-        _classPrivateFieldInitSpec(this, _currentClass, {
-          writable: true,
-          value: 'displayTitle'
-        })
-        _classPrivateFieldInitSpec(this, _currentIndex, {
-          writable: true,
-          value: 0
-        })
-        _classPrivateFieldInitSpec(this, _delayEffect, {
-          writable: true,
-          value: 200
-        })
-        _classPrivateFieldInitSpec(this, _delaySwitch, {
-          writable: true,
-          value: 400
-        })
-        _classPrivateFieldInitSpec(this, _isRandom, {
-          writable: true,
-          value: false
-        })
-        _classPrivateFieldInitSpec(this, _switchStyle, {
-          writable: true,
-          value: 'typingEffect'
-        })
-        _classPrivateFieldInitSpec(this, _titles, {
-          writable: true,
-          value: []
-        })
-        _classPrivateFieldInitSpec(this, _titlesContainer, {
-          writable: true,
-          value: null
-        })
-        _classPrivateFieldInitSpec(this, _typeSurface, {
-          writable: true,
-          value: void 0
-        })
-        _classPrivateFieldSet(this, _currentClass, 'displayTitle')
-        _classPrivateFieldSet(this, _switchStyle, this[typeof this[switchStyle] === 'function' ? switchStyle : 'typingEffect'])
-        _classPrivateFieldSet(this, _titlesContainer, titlesContainer)
-        _classPrivateFieldSet(this, _titles, [])
+        _TitleSwitcher_active.set(this, false)
+        _TitleSwitcher_currentClass.set(this, 'displayTitle')
+        _TitleSwitcher_currentIndex.set(this, 0)
+        _TitleSwitcher_delayEffect.set(this, 200)
+        _TitleSwitcher_delaySwitch.set(this, 400)
+        _TitleSwitcher_isRandom.set(this, false)
+        _TitleSwitcher_titles.set(this, [])
+        _TitleSwitcher_titlesContainer.set(this, null)
+        _TitleSwitcher_switchStyle.set(this, void 0)
+        _TitleSwitcher_typeSurface.set(this, void 0)
+        __classPrivateFieldSet(this, _TitleSwitcher_currentClass, 'displayTitle', 'f')
+        if (typeof switchStyle === 'string') {
+          // @ts-ignore Obnoxious error "type 'string' can't be used to index type 'TitleSwitcher'"
+          __classPrivateFieldSet(this, _TitleSwitcher_switchStyle, typeof this[switchStyle] === 'function' ? this[switchStyle] : this.typingEffect, 'f')
+        } else {
+          __classPrivateFieldSet(this, _TitleSwitcher_switchStyle, switchStyle, 'f')
+        }
+        __classPrivateFieldSet(this, _TitleSwitcher_titlesContainer, null, 'f')
+        __classPrivateFieldSet(this, _TitleSwitcher_titles, [], 'f')
         var foundContainers = titlesContainer ? document.querySelectorAll(titlesContainer) : []
         if (foundContainers && foundContainers[0]) {
-          _classPrivateFieldSet(this, _titlesContainer, foundContainers[0])
-          _classPrivateFieldSet(this, _titles, _classPrivateFieldGet(this, _titlesContainer).children)
+          __classPrivateFieldSet(this, _TitleSwitcher_titlesContainer, foundContainers[0], 'f')
+          __classPrivateFieldSet(this, _TitleSwitcher_titles, __classPrivateFieldGet(this, _TitleSwitcher_titlesContainer, 'f').children, 'f')
         }
       }
-
       /**
    * Retrieve active
    * @return {boolean}
@@ -131,9 +93,8 @@
       _createClass(TitleSwitcher, [{
         key: 'active',
         get: function get () {
-          return _classPrivateFieldGet(this, _active)
+          return __classPrivateFieldGet(this, _TitleSwitcher_active, 'f')
         }
-
         /**
      * Retrieve currentClass
      * @return {string}
@@ -141,9 +102,8 @@
       }, {
         key: 'currentClass',
         get: function get () {
-          return _classPrivateFieldGet(this, _currentClass)
+          return __classPrivateFieldGet(this, _TitleSwitcher_currentClass, 'f')
         }
-
         /**
      * Retrieve currentIndex
      * @return {number}
@@ -151,9 +111,8 @@
       }, {
         key: 'currentIndex',
         get: function get () {
-          return _classPrivateFieldGet(this, _currentIndex)
+          return __classPrivateFieldGet(this, _TitleSwitcher_currentIndex, 'f')
         }
-
         /**
      * Retrieve delayEffect
      * @return {number}
@@ -161,9 +120,8 @@
       }, {
         key: 'delayEffect',
         get: function get () {
-          return _classPrivateFieldGet(this, _delayEffect)
+          return __classPrivateFieldGet(this, _TitleSwitcher_delayEffect, 'f')
         }
-
         /**
      * Retrieve delaySwitch
      * @return {number}
@@ -171,29 +129,26 @@
       }, {
         key: 'delaySwitch',
         get: function get () {
-          return _classPrivateFieldGet(this, _delaySwitch)
+          return __classPrivateFieldGet(this, _TitleSwitcher_delaySwitch, 'f')
         }
-
         /**
      * Retrieve switchStyle
-     * @return {string}
+     * @return {Function}
      */
       }, {
         key: 'switchStyle',
         get: function get () {
-          return _classPrivateFieldGet(this, _switchStyle)
+          return __classPrivateFieldGet(this, _TitleSwitcher_switchStyle, 'f')
         }
-
         /**
      * Retrieve list of titles DOM elements
-     * @return {Array|NodeList}
+     * @return {Array<HTMLElement>|HTMLCollection}
      */
       }, {
         key: 'titles',
         get: function get () {
-          return _classPrivateFieldGet(this, _titles)
+          return __classPrivateFieldGet(this, _TitleSwitcher_titles, 'f')
         }
-
         /**
      * Retrieve typeSurface used
      * @return {HTMLElement|null}
@@ -201,9 +156,8 @@
       }, {
         key: 'typeSurface',
         get: function get () {
-          return _classPrivateFieldGet(this, _typeSurface)
+          return __classPrivateFieldGet(this, _TitleSwitcher_typeSurface, 'f')
         }
-
         /**
      * This is the function to begin the switching titles
      * @param {Object} [settings={}]
@@ -226,66 +180,65 @@
           var _ref$immediatePause = _ref.immediatePause
           var immediatePause = _ref$immediatePause === void 0 ? false : _ref$immediatePause
           var typeSurface = 'typeSurface'
-          _classPrivateFieldSet(this, _delaySwitch, delaySwitch)
-          _classPrivateFieldSet(this, _delayEffect, delayEffect)
-          _classPrivateFieldSet(this, _isRandom, isRandom)
-          _classPrivateFieldSet(this, _active, !immediatePause)
-          if (_classPrivateFieldGet(this, _currentIndex) >= _classPrivateFieldGet(this, _titles).length) {
-            _classPrivateFieldSet(this, _active, false)
-            console.warn("No titles found for '".concat(_classPrivateFieldGet(this, _titlesContainer), "'"))
+          __classPrivateFieldSet(this, _TitleSwitcher_delaySwitch, delaySwitch, 'f')
+          __classPrivateFieldSet(this, _TitleSwitcher_delayEffect, delayEffect, 'f')
+          __classPrivateFieldSet(this, _TitleSwitcher_isRandom, isRandom, 'f')
+          __classPrivateFieldSet(this, _TitleSwitcher_active, !immediatePause, 'f')
+          if (__classPrivateFieldGet(this, _TitleSwitcher_currentIndex, 'f') >= __classPrivateFieldGet(this, _TitleSwitcher_titles, 'f').length) {
+            __classPrivateFieldSet(this, _TitleSwitcher_active, false, 'f')
+            console.warn("No titles found for '".concat(__classPrivateFieldGet(this, _TitleSwitcher_titlesContainer, 'f'), "'"))
             return this
           }
-          if (_classPrivateFieldGet(this, _isRandom)) {
-            _classPrivateFieldSet(this, _currentIndex, Math.round(Math.random() * (_classPrivateFieldGet(this, _titles).length - 2)) + 1)
+          if (__classPrivateFieldGet(this, _TitleSwitcher_isRandom, 'f')) {
+            __classPrivateFieldSet(this, _TitleSwitcher_currentIndex, Math.round(Math.random() * (__classPrivateFieldGet(this, _TitleSwitcher_titles, 'f').length - 2)) + 1, 'f')
           }
-          var currentTitle = _classPrivateFieldGet(this, _titles)[_classPrivateFieldGet(this, _currentIndex)]
+          var currentTitle = __classPrivateFieldGet(this, _TitleSwitcher_titles, 'f')[__classPrivateFieldGet(this, _TitleSwitcher_currentIndex, 'f')]
           if (currentTitle.classList) {
-            currentTitle.classList.add(_classPrivateFieldGet(this, _currentClass))
+            currentTitle.classList.add(__classPrivateFieldGet(this, _TitleSwitcher_currentClass, 'f'))
           } else {
-            currentTitle.className += ' ' + _classPrivateFieldGet(this, _currentClass)
+            currentTitle.className += ' ' + __classPrivateFieldGet(this, _TitleSwitcher_currentClass, 'f')
           }
-          var typeElement = _classPrivateFieldGet(this, _titles)[0].cloneNode(true)
+          // @ts-ignore The Node returned is of type Element, or it should be
+          var typeElement = __classPrivateFieldGet(this, _TitleSwitcher_titles, 'f')[0].cloneNode(true)
           if (typeElement.classList) {
             typeElement.classList.add(typeSurface)
           } else {
             typeElement.className += ' ' + typeSurface
           }
           if (typeElement.classList) {
-            typeElement.classList.remove(_classPrivateFieldGet(this, _currentClass))
+            typeElement.classList.remove(__classPrivateFieldGet(this, _TitleSwitcher_currentClass, 'f'))
           } else {
             typeElement.className = typeElement.className.replace(new RegExp('(^|\\b)' + typeElement.className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ')
           }
-          _classPrivateFieldGet(this, _titlesContainer).insertBefore(typeElement, _classPrivateFieldGet(this, _titlesContainer).firstChild)
-          _classPrivateFieldSet(this, _typeSurface, _classPrivateFieldGet(this, _titlesContainer).querySelectorAll('.' + typeSurface)[0])
-          _classPrivateFieldGet(this, _typeSurface).innerHTML = ''
-          _classPrivateFieldGet(this, _typeSurface).style.display = 'block'
-          Array.prototype.forEach.call(_classPrivateFieldGet(this, _titles), function (title) {
+          __classPrivateFieldGet(this, _TitleSwitcher_titlesContainer, 'f').insertBefore(typeElement, __classPrivateFieldGet(this, _TitleSwitcher_titlesContainer, 'f').firstChild)
+          // @ts-ignore the returned Node is a type of HTMLElement
+          __classPrivateFieldSet(this, _TitleSwitcher_typeSurface, __classPrivateFieldGet(this, _TitleSwitcher_titlesContainer, 'f').querySelectorAll('.' + typeSurface)[0], 'f')
+          __classPrivateFieldGet(this, _TitleSwitcher_typeSurface, 'f').innerHTML = ''
+          __classPrivateFieldGet(this, _TitleSwitcher_typeSurface, 'f').style.display = 'block'
+          Array.prototype.forEach.call(__classPrivateFieldGet(this, _TitleSwitcher_titles, 'f'), function (title) {
             title.style.display = 'none'
           })
-          return this.switchTitle(_classPrivateFieldGet(this, _titles)[_classPrivateFieldGet(this, _currentIndex)], _classPrivateFieldGet(this, _switchStyle), this)
+          return this.switchTitle(__classPrivateFieldGet(this, _TitleSwitcher_titles, 'f')[__classPrivateFieldGet(this, _TitleSwitcher_currentIndex, 'f')], __classPrivateFieldGet(this, _TitleSwitcher_switchStyle, 'f'), this)
         }
-
         /**
      * This is the function to pause between switching
      */
       }, {
         key: 'pause',
         value: function pause () {
-          _classPrivateFieldSet(this, _active, false)
+          __classPrivateFieldSet(this, _TitleSwitcher_active, false, 'f')
         }
-
         /**
      * This is the function to resume after a pause.
      */
       }, {
         key: 'resume',
         value: function resume () {
-          if (!_classPrivateFieldGet(this, _active)) {
-            _classPrivateFieldSet(this, _active, true)
-            this.switchTitle(_classPrivateFieldGet(this, _titles)[_classPrivateFieldGet(this, _currentIndex)], _classPrivateFieldGet(this, _switchStyle), this)
+          if (!__classPrivateFieldGet(this, _TitleSwitcher_active, 'f')) {
+            __classPrivateFieldSet(this, _TitleSwitcher_active, true, 'f')
+            this.switchTitle(__classPrivateFieldGet(this, _TitleSwitcher_titles, 'f')[__classPrivateFieldGet(this, _TitleSwitcher_currentIndex, 'f')], __classPrivateFieldGet(this, _TitleSwitcher_switchStyle, 'f'), this)
           }
         }
-
         /**
      * This is the core function for switching titles
      * @param {HTMLElement} currentTitle
@@ -300,23 +253,25 @@
           var runOnce = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false
           self = self || this
           var currentIndex = 1
-          var size = _classPrivateFieldGet(self, _titles).length
+          var size = __classPrivateFieldGet(self, _TitleSwitcher_titles, 'f').length
           for (var i = 1; i < size; ++i) {
-            if (_classPrivateFieldGet(self, _titles)[i] === currentTitle) {
+            if (__classPrivateFieldGet(self, _TitleSwitcher_titles, 'f')[i] === currentTitle) {
               currentIndex = i
               break
             }
           }
-          if (!_classPrivateFieldGet(self, _active)) {
-            _classPrivateFieldSet(self, _currentIndex, currentIndex)
+          if (!__classPrivateFieldGet(self, _TitleSwitcher_active, 'f')) {
+            __classPrivateFieldSet(self, _TitleSwitcher_currentIndex, currentIndex, 'f')
             return self
           }
-          var maxIndex = _classPrivateFieldGet(self, _titles).length - 1
+          var maxIndex = __classPrivateFieldGet(self, _TitleSwitcher_titles, 'f').length - 1
           var nextIndex = 1
           if (maxIndex === 1) {
-            return callBackFunction(currentTitle, self.switchTitle, self)
+            return callBackFunction(currentTitle, runOnce ? function () {
+              return self
+            } : self.switchTitle, self, runOnce)
           }
-          if (_classPrivateFieldGet(self, _isRandom)) {
+          if (__classPrivateFieldGet(self, _TitleSwitcher_isRandom, 'f')) {
             if (!self.typeSurface.textContent.trim()) {
               currentIndex = -1
             }
@@ -329,7 +284,7 @@
             }
             nextIndex = currentIndex < maxIndex ? currentIndex + 1 : 1
           }
-          var nextTitle = _classPrivateFieldGet(self, _titles)[nextIndex]
+          var nextTitle = __classPrivateFieldGet(self, _TitleSwitcher_titles, 'f')[nextIndex]
           if (currentTitle.classList) {
             currentTitle.classList.remove(self.currentClass)
           } else {
@@ -341,12 +296,13 @@
             nextTitle.className += ' ' + self.currentClass
           }
           return callBackFunction(nextTitle, runOnce ? function () {
-            return null
+            return self
           } : self.switchTitle, self, runOnce)
         }
       }])
       return TitleSwitcher
     }())
+    _TitleSwitcher_active = new WeakMap(), _TitleSwitcher_currentClass = new WeakMap(), _TitleSwitcher_currentIndex = new WeakMap(), _TitleSwitcher_delayEffect = new WeakMap(), _TitleSwitcher_delaySwitch = new WeakMap(), _TitleSwitcher_isRandom = new WeakMap(), _TitleSwitcher_titles = new WeakMap(), _TitleSwitcher_titlesContainer = new WeakMap(), _TitleSwitcher_switchStyle = new WeakMap(), _TitleSwitcher_typeSurface = new WeakMap()
     /**
  * This is a helper function to improve the default 'typingEffect'
  * @param {boolean} blinkOn
@@ -364,7 +320,6 @@
       }
       return self
     }
-
     /**
  * This is the default and example of an effect being implemented when Titles are switched
  * These functions take the currentElement in focus, the switchTitle function as a callback
@@ -387,7 +342,6 @@
         }
       }
       domObject = domObject || self.titles[currentIndex + 1]
-      callBackFunction = callBackFunction || self.switchStyle
       var blinkOn = true
       var numBlinks = 4
       if (self.typeSurface.hasAttribute('style')) {
@@ -399,7 +353,6 @@
       // If we copied the title style, then display:none is set, so we need to ensure the surface is display:block
       self.typeSurface.innerHTML = ''
       self.typeSurface.style.display = 'block'
-
       // Initialize with a few cursor blinks
       for (var _i = 0; _i < numBlinks; ++_i) {
         setTimeout(function () {
@@ -427,7 +380,7 @@
                   self.cursorBlink(blinkOn, self)
                   if (_j === 0) {
                     callBackFunction(domObject, function () {
-                      return null
+                      return self
                     }, self, runOnce)
                     // callBackFunction(domObject, runOnce ? () => null : self.switchStyle, self, runOnce)
                   }
@@ -443,10 +396,12 @@
       }, numBlinks * self.delaySwitch)
       return self
     }
-    var _default = exports.default = TitleSwitcher
+    exports.default = TitleSwitcher
     if (void 0) {
+      // @ts-ignore 'this' is used in node as the global, and the key CAN be referenced by string
       (void 0).TitleSwitcher = TitleSwitcher
     } else if (typeof window !== 'undefined') {
+      // @ts-ignore YES, we can use a string to add a property to Window
       window.TitleSwitcher = TitleSwitcher
     }
   }, { 'core-js/modules/es.array.for-each.js': 154, 'core-js/modules/es.array.iterator.js': 155, 'core-js/modules/es.array.join.js': 156, 'core-js/modules/es.date.to-primitive.js': 157, 'core-js/modules/es.number.constructor.js': 159, 'core-js/modules/es.object.define-property.js': 160, 'core-js/modules/es.object.to-string.js': 162, 'core-js/modules/es.regexp.constructor.js': 163, 'core-js/modules/es.regexp.exec.js': 164, 'core-js/modules/es.regexp.sticky.js': 165, 'core-js/modules/es.regexp.to-string.js': 166, 'core-js/modules/es.string.iterator.js': 167, 'core-js/modules/es.string.replace.js': 168, 'core-js/modules/es.string.trim.js': 169, 'core-js/modules/es.symbol.description.js': 171, 'core-js/modules/es.symbol.iterator.js': 173, 'core-js/modules/es.symbol.js': 174, 'core-js/modules/es.symbol.to-primitive.js': 176, 'core-js/modules/es.weak-map.js': 178, 'core-js/modules/esnext.async-iterator.for-each.js': 179, 'core-js/modules/esnext.iterator.constructor.js': 180, 'core-js/modules/esnext.iterator.for-each.js': 181, 'core-js/modules/esnext.weak-map.delete-all.js': 182, 'core-js/modules/web.dom-collections.for-each.js': 183, 'core-js/modules/web.dom-collections.iterator.js': 184, 'core-js/modules/web.timers.js': 187 }],
