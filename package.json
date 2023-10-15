@@ -13,6 +13,14 @@
     "watch": "gulp watchFull",
     "watch:test": "gulp watchTest"
   },
+  "keywords": [
+    "decorative",
+    "design",
+    "creative",
+    "title",
+    "typing",
+    "typing-effect"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jheagle/title-switcher-v2.git"
@@ -24,7 +32,7 @@
   },
   "homepage": "https://github.com/jheagle/title-switcher-v2#readme",
   "devDependencies": {
-    "js-build-tools": "^2.2.7"
+    "js-build-tools": "^2.2.8"
   },
   "dependencies": {},
   "main": "dist/main.min.js",
