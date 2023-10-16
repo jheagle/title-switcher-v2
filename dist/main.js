@@ -377,7 +377,6 @@ TitleSwitcher.prototype.typingEffect = function (domObject, callBackFunction, se
               --_j
               self.cursorBlink(blinkOn, self)
               if (_j === 0) {
-                // callBackFunction(domObject, (): TitleSwitcher => self, self, runOnce)
                 callBackFunction(domObject, runOnce ? function () {
                   return self
                 } : self.switchStyle, self, runOnce)

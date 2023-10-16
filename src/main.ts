@@ -187,7 +187,6 @@ class TitleSwitcher {
     }
   }
 
-
   /**
    * This is the core function for switching titles
    * @param {HTMLElement} currentTitle
@@ -321,7 +320,6 @@ TitleSwitcher.prototype.typingEffect = (domObject: HTMLElement | Element, callBa
               --j
               self.cursorBlink(blinkOn, self)
               if (j === 0) {
-                // callBackFunction(domObject, (): TitleSwitcher => self, self, runOnce)
                 callBackFunction(domObject, runOnce ? () => self : self.switchStyle, self, runOnce)
               }
             }, j * self.delaySwitch)
