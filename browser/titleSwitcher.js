@@ -68,7 +68,7 @@
         _TitleSwitcher_delaySwitch.set(this, 400)
         _TitleSwitcher_isRandom.set(this, false)
         _TitleSwitcher_titles.set(this, [])
-        _TitleSwitcher_titlesContainer.set(this, null)
+        _TitleSwitcher_titlesContainer.set(this, '')
         _TitleSwitcher_switchStyle.set(this, void 0)
         _TitleSwitcher_typeSurface.set(this, void 0)
         __classPrivateFieldSet(this, _TitleSwitcher_currentClass, 'displayTitle', 'f')
@@ -78,12 +78,12 @@
         } else {
           __classPrivateFieldSet(this, _TitleSwitcher_switchStyle, switchStyle, 'f')
         }
-        __classPrivateFieldSet(this, _TitleSwitcher_titlesContainer, null, 'f')
+        __classPrivateFieldSet(this, _TitleSwitcher_titlesContainer, titlesContainer, 'f')
         __classPrivateFieldSet(this, _TitleSwitcher_titles, [], 'f')
         var foundContainers = titlesContainer ? document.querySelectorAll(titlesContainer) : []
         if (foundContainers && foundContainers[0]) {
           __classPrivateFieldSet(this, _TitleSwitcher_titlesContainer, foundContainers[0], 'f')
-          __classPrivateFieldSet(this, _TitleSwitcher_titles, __classPrivateFieldGet(this, _TitleSwitcher_titlesContainer, 'f').children, 'f')
+          __classPrivateFieldSet(this, _TitleSwitcher_titles, foundContainers[0].children, 'f')
         }
       }
       /**
@@ -184,7 +184,7 @@
           __classPrivateFieldSet(this, _TitleSwitcher_delayEffect, delayEffect, 'f')
           __classPrivateFieldSet(this, _TitleSwitcher_isRandom, isRandom, 'f')
           __classPrivateFieldSet(this, _TitleSwitcher_active, !immediatePause, 'f')
-          if (__classPrivateFieldGet(this, _TitleSwitcher_currentIndex, 'f') >= __classPrivateFieldGet(this, _TitleSwitcher_titles, 'f').length) {
+          if (__classPrivateFieldGet(this, _TitleSwitcher_currentIndex, 'f') >= __classPrivateFieldGet(this, _TitleSwitcher_titles, 'f').length || typeof __classPrivateFieldGet(this, _TitleSwitcher_titlesContainer, 'f') === 'string') {
             __classPrivateFieldSet(this, _TitleSwitcher_active, false, 'f')
             console.warn("No titles found for '".concat(__classPrivateFieldGet(this, _TitleSwitcher_titlesContainer, 'f'), "'"))
             return this
@@ -379,10 +379,10 @@
                   --_j
                   self.cursorBlink(blinkOn, self)
                   if (_j === 0) {
-                    callBackFunction(domObject, function () {
+                    // callBackFunction(domObject, (): TitleSwitcher => self, self, runOnce)
+                    callBackFunction(domObject, runOnce ? function () {
                       return self
-                    }, self, runOnce)
-                    // callBackFunction(domObject, runOnce ? () => null : self.switchStyle, self, runOnce)
+                    } : self.switchStyle, self, runOnce)
                   }
                 }, _j * self.delaySwitch)
                 j = _j

@@ -19,7 +19,7 @@ class TitleSwitcher {
   #delaySwitch: number = 400
   #isRandom: boolean = false
   #titles: HTMLCollection | HTMLElement[] = []
-  #titlesContainer: HTMLElement | null = null
+  #titlesContainer: HTMLElement | string = ''
   #switchStyle: switchTitleCallback
   #typeSurface: HTMLElement | null
   cursorBlink: (blinkOn: boolean, self: TitleSwitcher) => TitleSwitcher
@@ -40,12 +40,12 @@ class TitleSwitcher {
     } else {
       this.#switchStyle = switchStyle
     }
-    this.#titlesContainer = null
+    this.#titlesContainer = titlesContainer
     this.#titles = []
     const foundContainers: any[] | NodeListOf<Element> = titlesContainer ? document.querySelectorAll(titlesContainer) : []
     if (foundContainers && foundContainers[0]) {
       this.#titlesContainer = foundContainers[0]
-      this.#titles = this.#titlesContainer.children
+      this.#titles = foundContainers[0].children
     }
   }
 
@@ -133,7 +133,7 @@ class TitleSwitcher {
     this.#delayEffect = delayEffect
     this.#isRandom = isRandom
     this.#active = !immediatePause
-    if (this.#currentIndex >= this.#titles.length) {
+    if (this.#currentIndex >= this.#titles.length || typeof this.#titlesContainer === 'string') {
       this.#active = false
       console.warn(`No titles found for '${this.#titlesContainer}'`)
       return this
@@ -321,8 +321,8 @@ TitleSwitcher.prototype.typingEffect = (domObject: HTMLElement | Element, callBa
               --j
               self.cursorBlink(blinkOn, self)
               if (j === 0) {
-                callBackFunction(domObject, (): TitleSwitcher => self, self, runOnce)
-                // callBackFunction(domObject, runOnce ? () => null : self.switchStyle, self, runOnce)
+                // callBackFunction(domObject, (): TitleSwitcher => self, self, runOnce)
+                callBackFunction(domObject, runOnce ? () => self : self.switchStyle, self, runOnce)
               }
             }, j * self.delaySwitch)
           }
