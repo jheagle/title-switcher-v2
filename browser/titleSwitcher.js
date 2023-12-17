@@ -33,8 +33,8 @@
     function _classCallCheck (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
     function _defineProperties (target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor) } }
     function _createClass (Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, 'prototype', { writable: false }); return Constructor }
-    function _toPropertyKey (arg) { var key = _toPrimitive(arg, 'string'); return _typeof(key) === 'symbol' ? key : String(key) }
-    function _toPrimitive (input, hint) { if (_typeof(input) !== 'object' || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || 'default'); if (_typeof(res) !== 'object') return res; throw new TypeError('@@toPrimitive must return a primitive value.') } return (hint === 'string' ? String : Number)(input) }
+    function _toPropertyKey (t) { var i = _toPrimitive(t, 'string'); return _typeof(i) == 'symbol' ? i : String(i) }
+    function _toPrimitive (t, r) { if (_typeof(t) != 'object' || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || 'default'); if (_typeof(i) != 'object') return i; throw new TypeError('@@toPrimitive must return a primitive value.') } return (r === 'string' ? String : Number)(t) }
     var __classPrivateFieldSet = void 0 && (void 0).__classPrivateFieldSet || function (receiver, state, value, kind, f) {
       if (kind === 'm') throw new TypeError('Private method is not writable')
       if (kind === 'a' && !f) throw new TypeError('Private accessor was defined without a setter')
@@ -585,8 +585,8 @@
       return function ($this, callbackfn, that, specificCreate) {
         var O = toObject($this)
         var self = IndexedObject(O)
-        var boundFunction = bind(callbackfn, that)
         var length = lengthOfArrayLike(self)
+        var boundFunction = bind(callbackfn, that)
         var index = 0
         var create = specificCreate || arraySpeciesCreate
         var target = IS_MAP ? create($this, length) : IS_FILTER || IS_FILTER_REJECT ? create($this, 0) : undefined
@@ -1412,7 +1412,7 @@
   }, { '../internals/document-create-element': 38 }],
   42: [function (require, module, exports) {
     'use strict'
-    /* global Bun -- Deno case */
+    /* global Bun -- Bun case */
     module.exports = typeof Bun === 'function' && Bun && typeof Bun.version === 'string'
   }, {}],
   43: [function (require, module, exports) {
@@ -1894,8 +1894,9 @@
   // eslint-disable-next-line no-restricted-globals -- safe
   check(typeof self === 'object' && self) ||
   check(typeof global === 'object' && global) ||
+  check(typeof this === 'object' && this) ||
   // eslint-disable-next-line no-new-func -- fallback
-  (function () { return this })() || this || Function('return this')()
+  (function () { return this })() || Function('return this')()
       }).call(this)
     }).call(this, typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : {})
   }, {}],
@@ -3460,10 +3461,10 @@
     (module.exports = function (key, value) {
       return store[key] || (store[key] = value !== undefined ? value : {})
     })('versions', []).push({
-      version: '3.33.0',
+      version: '3.34.0',
       mode: IS_PURE ? 'pure' : 'global',
       copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
-      license: 'https://github.com/zloirock/core-js/blob/v3.33.0/LICENSE',
+      license: 'https://github.com/zloirock/core-js/blob/v3.34.0/LICENSE',
       source: 'https://github.com/zloirock/core-js'
     })
   }, { '../internals/is-pure': 82, '../internals/shared-store': 125 }],
@@ -3920,13 +3921,12 @@
     }, function () {
       var state = getInternalState(this)
       var target = state.target
-      var kind = state.kind
       var index = state.index++
       if (!target || index >= target.length) {
         state.target = undefined
         return createIterResultObject(undefined, true)
       }
-      switch (kind) {
+      switch (state.kind) {
         case 'keys': return createIterResultObject(index, false)
         case 'values': return createIterResultObject(target[index], false)
       } return createIterResultObject([index, target[index]], false)
@@ -4232,6 +4232,7 @@
     var isForced = require('../internals/is-forced')
     var inheritIfRequired = require('../internals/inherit-if-required')
     var createNonEnumerableProperty = require('../internals/create-non-enumerable-property')
+    var create = require('../internals/object-create')
     var getOwnPropertyNames = require('../internals/object-get-own-property-names').f
     var isPrototypeOf = require('../internals/object-is-prototype-of')
     var isRegExp = require('../internals/is-regexp')
@@ -4304,7 +4305,7 @@
       var index = 0
       var result = ''
       var named = []
-      var names = {}
+      var names = create(null)
       var brackets = false
       var ncg = false
       var groupid = 0
@@ -4420,7 +4421,7 @@
 
     // https://tc39.es/ecma262/#sec-get-regexp-@@species
     setSpecies('RegExp')
-  }, { '../internals/create-non-enumerable-property': 28, '../internals/define-built-in': 33, '../internals/descriptors': 36, '../internals/fails': 47, '../internals/function-uncurry-this': 57, '../internals/global': 65, '../internals/has-own-property': 66, '../internals/inherit-if-required': 71, '../internals/internal-state': 74, '../internals/is-forced': 79, '../internals/is-regexp': 83, '../internals/object-get-own-property-names': 99, '../internals/object-is-prototype-of': 103, '../internals/proxy-accessor': 112, '../internals/regexp-get-flags': 116, '../internals/regexp-sticky-helpers': 117, '../internals/regexp-unsupported-dot-all': 118, '../internals/regexp-unsupported-ncg': 119, '../internals/set-species': 122, '../internals/to-string': 142, '../internals/well-known-symbol': 152 }],
+  }, { '../internals/create-non-enumerable-property': 28, '../internals/define-built-in': 33, '../internals/descriptors': 36, '../internals/fails': 47, '../internals/function-uncurry-this': 57, '../internals/global': 65, '../internals/has-own-property': 66, '../internals/inherit-if-required': 71, '../internals/internal-state': 74, '../internals/is-forced': 79, '../internals/is-regexp': 83, '../internals/object-create': 94, '../internals/object-get-own-property-names': 99, '../internals/object-is-prototype-of': 103, '../internals/proxy-accessor': 112, '../internals/regexp-get-flags': 116, '../internals/regexp-sticky-helpers': 117, '../internals/regexp-unsupported-dot-all': 118, '../internals/regexp-unsupported-ncg': 119, '../internals/set-species': 122, '../internals/to-string': 142, '../internals/well-known-symbol': 152 }],
   164: [function (require, module, exports) {
     'use strict'
     var $ = require('../internals/export')
@@ -4850,14 +4851,15 @@
         var description = !arguments.length || arguments[0] === undefined ? undefined : $toString(arguments[0])
         var tag = uid(description)
         var setter = function (value) {
-          if (this === ObjectPrototype) call(setter, ObjectPrototypeSymbols, value)
-          if (hasOwn(this, HIDDEN) && hasOwn(this[HIDDEN], tag)) this[HIDDEN][tag] = false
+          var $this = this === undefined ? global : this
+          if ($this === ObjectPrototype) call(setter, ObjectPrototypeSymbols, value)
+          if (hasOwn($this, HIDDEN) && hasOwn($this[HIDDEN], tag)) $this[HIDDEN][tag] = false
           var descriptor = createPropertyDescriptor(1, value)
           try {
-            setSymbolDescriptor(this, tag, descriptor)
+            setSymbolDescriptor($this, tag, descriptor)
           } catch (error) {
             if (!(error instanceof RangeError)) throw error
-            fallbackDefineProperty(this, tag, descriptor)
+            fallbackDefineProperty($this, tag, descriptor)
           }
         }
         if (DESCRIPTORS && USE_SETTER) setSymbolDescriptor(ObjectPrototype, tag, { configurable: true, set: setter })
@@ -5215,19 +5217,24 @@
     var $ = require('../internals/export')
     var global = require('../internals/global')
     var anInstance = require('../internals/an-instance')
+    var anObject = require('../internals/an-object')
     var isCallable = require('../internals/is-callable')
     var getPrototypeOf = require('../internals/object-get-prototype-of')
-    var createNonEnumerableProperty = require('../internals/create-non-enumerable-property')
+    var defineBuiltInAccessor = require('../internals/define-built-in-accessor')
+    var createProperty = require('../internals/create-property')
     var fails = require('../internals/fails')
     var hasOwn = require('../internals/has-own-property')
     var wellKnownSymbol = require('../internals/well-known-symbol')
     var IteratorPrototype = require('../internals/iterators-core').IteratorPrototype
+    var DESCRIPTORS = require('../internals/descriptors')
     var IS_PURE = require('../internals/is-pure')
 
+    var CONSTRUCTOR = 'constructor'
+    var ITERATOR = 'Iterator'
     var TO_STRING_TAG = wellKnownSymbol('toStringTag')
 
     var $TypeError = TypeError
-    var NativeIterator = global.Iterator
+    var NativeIterator = global[ITERATOR]
 
     // FF56- have non-standard global helper `Iterator`
     var FORCED = IS_PURE ||
@@ -5241,12 +5248,27 @@
       if (getPrototypeOf(this) === IteratorPrototype) throw new $TypeError('Abstract class Iterator not directly constructable')
     }
 
-    if (!hasOwn(IteratorPrototype, TO_STRING_TAG)) {
-      createNonEnumerableProperty(IteratorPrototype, TO_STRING_TAG, 'Iterator')
+    var defineIteratorPrototypeAccessor = function (key, value) {
+      if (DESCRIPTORS) {
+        defineBuiltInAccessor(IteratorPrototype, key, {
+          configurable: true,
+          get: function () {
+            return value
+          },
+          set: function (replacement) {
+            anObject(this)
+            if (this === IteratorPrototype) throw new $TypeError("You can't redefine this property")
+            if (hasOwn(this, key)) this[key] = replacement
+            else createProperty(this, key, replacement)
+          }
+        })
+      } else IteratorPrototype[key] = value
     }
 
-    if (FORCED || !hasOwn(IteratorPrototype, 'constructor') || IteratorPrototype.constructor === Object) {
-      createNonEnumerableProperty(IteratorPrototype, 'constructor', IteratorConstructor)
+    if (!hasOwn(IteratorPrototype, TO_STRING_TAG)) defineIteratorPrototypeAccessor(TO_STRING_TAG, ITERATOR)
+
+    if (FORCED || !hasOwn(IteratorPrototype, CONSTRUCTOR) || IteratorPrototype[CONSTRUCTOR] === Object) {
+      defineIteratorPrototypeAccessor(CONSTRUCTOR, IteratorConstructor)
     }
 
     IteratorConstructor.prototype = IteratorPrototype
@@ -5256,7 +5278,7 @@
     $({ global: true, constructor: true, forced: FORCED }, {
       Iterator: IteratorConstructor
     })
-  }, { '../internals/an-instance': 7, '../internals/create-non-enumerable-property': 28, '../internals/export': 46, '../internals/fails': 47, '../internals/global': 65, '../internals/has-own-property': 66, '../internals/is-callable': 77, '../internals/is-pure': 82, '../internals/iterators-core': 89, '../internals/object-get-prototype-of': 101, '../internals/well-known-symbol': 152 }],
+  }, { '../internals/an-instance': 7, '../internals/an-object': 8, '../internals/create-property': 30, '../internals/define-built-in-accessor': 32, '../internals/descriptors': 36, '../internals/export': 46, '../internals/fails': 47, '../internals/global': 65, '../internals/has-own-property': 66, '../internals/is-callable': 77, '../internals/is-pure': 82, '../internals/iterators-core': 89, '../internals/object-get-prototype-of': 101, '../internals/well-known-symbol': 152 }],
   181: [function (require, module, exports) {
     'use strict'
     var $ = require('../internals/export')
@@ -5333,10 +5355,10 @@
     var DOMTokenListPrototype = require('../internals/dom-token-list-prototype')
     var ArrayIteratorMethods = require('../modules/es.array.iterator')
     var createNonEnumerableProperty = require('../internals/create-non-enumerable-property')
+    var setToStringTag = require('../internals/set-to-string-tag')
     var wellKnownSymbol = require('../internals/well-known-symbol')
 
     var ITERATOR = wellKnownSymbol('iterator')
-    var TO_STRING_TAG = wellKnownSymbol('toStringTag')
     var ArrayValues = ArrayIteratorMethods.values
 
     var handlePrototype = function (CollectionPrototype, COLLECTION_NAME) {
@@ -5349,9 +5371,7 @@
             CollectionPrototype[ITERATOR] = ArrayValues
           }
         }
-        if (!CollectionPrototype[TO_STRING_TAG]) {
-          createNonEnumerableProperty(CollectionPrototype, TO_STRING_TAG, COLLECTION_NAME)
-        }
+        setToStringTag(CollectionPrototype, COLLECTION_NAME, true)
         if (DOMIterables[COLLECTION_NAME]) {
           for (var METHOD_NAME in ArrayIteratorMethods) {
           // some Chrome versions have non-configurable methods on DOMTokenList
@@ -5372,7 +5392,7 @@
     }
 
     handlePrototype(DOMTokenListPrototype, 'DOMTokenList')
-  }, { '../internals/create-non-enumerable-property': 28, '../internals/dom-iterables': 40, '../internals/dom-token-list-prototype': 41, '../internals/global': 65, '../internals/well-known-symbol': 152, '../modules/es.array.iterator': 155 }],
+  }, { '../internals/create-non-enumerable-property': 28, '../internals/dom-iterables': 40, '../internals/dom-token-list-prototype': 41, '../internals/global': 65, '../internals/set-to-string-tag': 123, '../internals/well-known-symbol': 152, '../modules/es.array.iterator': 155 }],
   185: [function (require, module, exports) {
     'use strict'
     var $ = require('../internals/export')
