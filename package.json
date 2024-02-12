@@ -1,6 +1,6 @@
 {
   "name": "title-switcher",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "Add typing effect to titles and also switch through several titles.",
   "scripts": {
     "build": "gulp build",
