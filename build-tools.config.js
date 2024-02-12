@@ -1,5 +1,12 @@
 module.exports = {
-  browserName: 'titleSwitcher',
-  readmeSearch: 'dist/**/!(*.min).js',
-  useTsConfig: 'tsconfig.json',
+  browser: {
+    name: 'titleSwitcher',
+  },
+  readme: {
+    from: 'dist/**/!(*.min).js',
+  },
+  typescript: {
+    config: 'tsconfig.json',
+    enabled: true,
+  },
 }

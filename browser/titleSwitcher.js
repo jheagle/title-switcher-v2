@@ -2,33 +2,33 @@
   1: [function (require, module, exports) {
     'use strict'
 
-    require('core-js/modules/es.symbol.to-primitive.js')
-    require('core-js/modules/es.date.to-primitive.js')
     require('core-js/modules/es.symbol.js')
     require('core-js/modules/es.symbol.description.js')
-    require('core-js/modules/es.number.constructor.js')
     require('core-js/modules/es.symbol.iterator.js')
+    require('core-js/modules/es.symbol.to-primitive.js')
+    require('core-js/modules/es.date.to-primitive.js')
+    require('core-js/modules/es.number.constructor.js')
     function _typeof (o) { '@babel/helpers - typeof'; return _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function (o) { return typeof o } : function (o) { return o && typeof Symbol === 'function' && o.constructor === Symbol && o !== Symbol.prototype ? 'symbol' : typeof o }, _typeof(o) }
+    require('core-js/modules/es.array.for-each.js')
+    require('core-js/modules/es.array.iterator.js')
+    require('core-js/modules/es.array.join.js')
     require('core-js/modules/es.object.define-property.js')
-    require('core-js/modules/es.regexp.exec.js')
-    require('core-js/modules/es.string.replace.js')
+    require('core-js/modules/es.object.to-string.js')
     require('core-js/modules/es.regexp.constructor.js')
+    require('core-js/modules/es.regexp.exec.js')
     require('core-js/modules/es.regexp.sticky.js')
     require('core-js/modules/es.regexp.to-string.js')
-    require('core-js/modules/es.array.join.js')
-    require('core-js/modules/es.array.for-each.js')
-    require('core-js/modules/es.object.to-string.js')
-    require('core-js/modules/es.string.trim.js')
-    require('core-js/modules/es.array.iterator.js')
     require('core-js/modules/es.string.iterator.js')
+    require('core-js/modules/es.string.replace.js')
+    require('core-js/modules/es.string.trim.js')
     require('core-js/modules/es.weak-map.js')
-    require('core-js/modules/esnext.weak-map.delete-all.js')
-    require('core-js/modules/web.dom-collections.iterator.js')
-    require('core-js/modules/web.timers.js')
     require('core-js/modules/esnext.async-iterator.for-each.js')
     require('core-js/modules/esnext.iterator.constructor.js')
     require('core-js/modules/esnext.iterator.for-each.js')
+    require('core-js/modules/esnext.weak-map.delete-all.js')
     require('core-js/modules/web.dom-collections.for-each.js')
+    require('core-js/modules/web.dom-collections.iterator.js')
+    require('core-js/modules/web.timers.js')
     var _this = void 0
     function _classCallCheck (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
     function _defineProperties (target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor) } }
@@ -1464,7 +1464,7 @@
       } else if (STATIC) {
         target = global[TARGET] || defineGlobalProperty(TARGET, {})
       } else {
-        target = (global[TARGET] || {}).prototype
+        target = global[TARGET] && global[TARGET].prototype
       }
       if (target) {
         for (key in source) {
@@ -1502,7 +1502,7 @@
     'use strict'
     // TODO: Remove from `core-js@4` since it's moved to entry points
     require('../modules/es.regexp.exec')
-    var uncurryThis = require('../internals/function-uncurry-this-clause')
+    var call = require('../internals/function-call')
     var defineBuiltIn = require('../internals/define-built-in')
     var regexpExec = require('../internals/regexp-exec')
     var fails = require('../internals/fails')
@@ -1516,7 +1516,7 @@
       var SYMBOL = wellKnownSymbol(KEY)
 
       var DELEGATES_TO_SYMBOL = !fails(function () {
-        // String methods call symbol-named RegEp methods
+        // String methods call symbol-named RegExp methods
         var O = {}
         O[SYMBOL] = function () { return 7 }
         return ''[KEY](O) !== 7
@@ -1554,18 +1554,17 @@
     !DELEGATES_TO_EXEC ||
     FORCED
       ) {
-        var uncurriedNativeRegExpMethod = uncurryThis(/./[SYMBOL])
+        var nativeRegExpMethod = /./[SYMBOL]
         var methods = exec(SYMBOL, ''[KEY], function (nativeMethod, regexp, str, arg2, forceStringMethod) {
-          var uncurriedNativeMethod = uncurryThis(nativeMethod)
           var $exec = regexp.exec
           if ($exec === regexpExec || $exec === RegExpPrototype.exec) {
             if (DELEGATES_TO_SYMBOL && !forceStringMethod) {
               // The native String method already delegates to @@method (this
               // polyfilled function), leasing to infinite recursion.
               // We avoid it by directly calling the native @@method method.
-              return { done: true, value: uncurriedNativeRegExpMethod(regexp, str, arg2) }
+              return { done: true, value: call(nativeRegExpMethod, regexp, str, arg2) }
             }
-            return { done: true, value: uncurriedNativeMethod(str, regexp, arg2) }
+            return { done: true, value: call(nativeMethod, str, regexp, arg2) }
           }
           return { done: false }
         })
@@ -1576,7 +1575,7 @@
 
       if (SHAM) createNonEnumerableProperty(RegExpPrototype[SYMBOL], 'sham', true)
     }
-  }, { '../internals/create-non-enumerable-property': 27, '../internals/define-built-in': 32, '../internals/fails': 45, '../internals/function-uncurry-this-clause': 54, '../internals/regexp-exec': 113, '../internals/well-known-symbol': 151, '../modules/es.regexp.exec': 163 }],
+  }, { '../internals/create-non-enumerable-property': 27, '../internals/define-built-in': 32, '../internals/fails': 45, '../internals/function-call': 51, '../internals/regexp-exec': 113, '../internals/well-known-symbol': 151, '../modules/es.regexp.exec': 163 }],
   47: [function (require, module, exports) {
     'use strict'
     var fails = require('../internals/fails')
@@ -2176,7 +2175,6 @@
     var inspectSource = require('../internals/inspect-source')
 
     var noop = function () { /* empty */ }
-    var empty = []
     var construct = getBuiltIn('Reflect', 'construct')
     var constructorRegExp = /^\s*(?:class|function)\b/
     var exec = uncurryThis(constructorRegExp.exec)
@@ -2185,7 +2183,7 @@
     var isConstructorModern = function isConstructor (argument) {
       if (!isCallable(argument)) return false
       try {
-        construct(noop, empty, argument)
+        construct(noop, [], argument)
         return true
       } catch (error) {
         return false
@@ -2618,7 +2616,7 @@
 
     var makeBuiltIn = module.exports = function (value, name, options) {
       if (stringSlice($String(name), 0, 7) === 'Symbol(') {
-        name = '[' + replace($String(name), /^Symbol\(([^)]*)\)/, '$1') + ']'
+        name = '[' + replace($String(name), /^Symbol\(([^)]*)\).*$/, '$1') + ']'
       }
       if (options && options.getter) name = 'get ' + name
       if (options && options.setter) name = 'set ' + name
@@ -3431,10 +3429,10 @@
     (module.exports = function (key, value) {
       return store[key] || (store[key] = value !== undefined ? value : {})
     })('versions', []).push({
-      version: '3.35.0',
+      version: '3.35.1',
       mode: IS_PURE ? 'pure' : 'global',
-      copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
-      license: 'https://github.com/zloirock/core-js/blob/v3.35.0/LICENSE',
+      copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
+      license: 'https://github.com/zloirock/core-js/blob/v3.35.1/LICENSE',
       source: 'https://github.com/zloirock/core-js'
     })
   }, { '../internals/is-pure': 81, '../internals/shared-store': 124 }],
@@ -3633,7 +3631,8 @@
     // `ToLength` abstract operation
     // https://tc39.es/ecma262/#sec-tolength
     module.exports = function (argument) {
-      return argument > 0 ? min(toIntegerOrInfinity(argument), 0x1FFFFFFFFFFFFF) : 0 // 2 ** 53 - 1 == 9007199254740991
+      var len = toIntegerOrInfinity(argument)
+      return len > 0 ? min(len, 0x1FFFFFFFFFFFFF) : 0 // 2 ** 53 - 1 == 9007199254740991
     }
   }, { '../internals/to-integer-or-infinity': 135 }],
   137: [function (require, module, exports) {
