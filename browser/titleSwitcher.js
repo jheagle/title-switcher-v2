@@ -534,6 +534,7 @@
       return function ($this, el, fromIndex) {
         var O = toIndexedObject($this)
         var length = lengthOfArrayLike(O)
+        if (length === 0) return !IS_INCLUDES && -1
         var index = toAbsoluteIndex(fromIndex, length)
         var value
         // Array#includes uses SameValueZero equality algorithm
@@ -1203,16 +1204,15 @@
   }, {}],
   29: [function (require, module, exports) {
     'use strict'
-    var toPropertyKey = require('../internals/to-property-key')
+    var DESCRIPTORS = require('../internals/descriptors')
     var definePropertyModule = require('../internals/object-define-property')
     var createPropertyDescriptor = require('../internals/create-property-descriptor')
 
     module.exports = function (object, key, value) {
-      var propertyKey = toPropertyKey(key)
-      if (propertyKey in object) definePropertyModule.f(object, propertyKey, createPropertyDescriptor(0, value))
-      else object[propertyKey] = value
+      if (DESCRIPTORS) definePropertyModule.f(object, key, createPropertyDescriptor(0, value))
+      else object[key] = value
     }
-  }, { '../internals/create-property-descriptor': 28, '../internals/object-define-property': 95, '../internals/to-property-key': 139 }],
+  }, { '../internals/create-property-descriptor': 28, '../internals/descriptors': 35, '../internals/object-define-property': 95 }],
   30: [function (require, module, exports) {
     'use strict'
     var anObject = require('../internals/an-object')
@@ -3413,29 +3413,29 @@
   }, { '../internals/shared': 125, '../internals/uid': 143 }],
   124: [function (require, module, exports) {
     'use strict'
-    var global = require('../internals/global')
+    var IS_PURE = require('../internals/is-pure')
+    var globalThis = require('../internals/global')
     var defineGlobalProperty = require('../internals/define-global-property')
 
     var SHARED = '__core-js_shared__'
-    var store = global[SHARED] || defineGlobalProperty(SHARED, {})
+    var store = module.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
-    module.exports = store
-  }, { '../internals/define-global-property': 34, '../internals/global': 63 }],
-  125: [function (require, module, exports) {
-    'use strict'
-    var IS_PURE = require('../internals/is-pure')
-    var store = require('../internals/shared-store');
-
-    (module.exports = function (key, value) {
-      return store[key] || (store[key] = value !== undefined ? value : {})
-    })('versions', []).push({
-      version: '3.35.1',
+    (store.versions || (store.versions = [])).push({
+      version: '3.36.0',
       mode: IS_PURE ? 'pure' : 'global',
       copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-      license: 'https://github.com/zloirock/core-js/blob/v3.35.1/LICENSE',
+      license: 'https://github.com/zloirock/core-js/blob/v3.36.0/LICENSE',
       source: 'https://github.com/zloirock/core-js'
     })
-  }, { '../internals/is-pure': 81, '../internals/shared-store': 124 }],
+  }, { '../internals/define-global-property': 34, '../internals/global': 63, '../internals/is-pure': 81 }],
+  125: [function (require, module, exports) {
+    'use strict'
+    var store = require('../internals/shared-store')
+
+    module.exports = function (key, value) {
+      return store[key] || (store[key] = value || {})
+    }
+  }, { '../internals/shared-store': 124 }],
   126: [function (require, module, exports) {
     'use strict'
     var uncurryThis = require('../internals/function-uncurry-this')
