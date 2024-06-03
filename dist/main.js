@@ -28,10 +28,10 @@ require('core-js/modules/web.dom-collections.for-each.js')
 require('core-js/modules/web.dom-collections.iterator.js')
 require('core-js/modules/web.timers.js')
 var _this = void 0
-function _classCallCheck (instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function') } }
-function _defineProperties (target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor) } }
-function _createClass (Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, 'prototype', { writable: false }); return Constructor }
-function _toPropertyKey (t) { var i = _toPrimitive(t, 'string'); return _typeof(i) == 'symbol' ? i : String(i) }
+function _classCallCheck (a, n) { if (!(a instanceof n)) throw new TypeError('Cannot call a class as a function') }
+function _defineProperties (e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, 'value' in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o) } }
+function _createClass (e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, 'prototype', { writable: !1 }), e }
+function _toPropertyKey (t) { var i = _toPrimitive(t, 'string'); return _typeof(i) == 'symbol' ? i : i + '' }
 function _toPrimitive (t, r) { if (_typeof(t) != 'object' || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || 'default'); if (_typeof(i) != 'object') return i; throw new TypeError('@@toPrimitive must return a primitive value.') } return (r === 'string' ? String : Number)(t) }
 var __classPrivateFieldSet = void 0 && (void 0).__classPrivateFieldSet || function (receiver, state, value, kind, f) {
   if (kind === 'm') throw new TypeError('Private method is not writable')
@@ -88,7 +88,7 @@ var TitleSwitcher = /* #__PURE__ */(function () {
    * Retrieve active
    * @return {boolean}
    */
-  _createClass(TitleSwitcher, [{
+  return _createClass(TitleSwitcher, [{
     key: 'active',
     get: function get () {
       return __classPrivateFieldGet(this, _TitleSwitcher_active, 'f')
@@ -298,7 +298,6 @@ var TitleSwitcher = /* #__PURE__ */(function () {
       } : self.switchTitle, self, runOnce)
     }
   }])
-  return TitleSwitcher
 }())
 _TitleSwitcher_active = new WeakMap(), _TitleSwitcher_currentClass = new WeakMap(), _TitleSwitcher_currentIndex = new WeakMap(), _TitleSwitcher_delayEffect = new WeakMap(), _TitleSwitcher_delaySwitch = new WeakMap(), _TitleSwitcher_isRandom = new WeakMap(), _TitleSwitcher_titles = new WeakMap(), _TitleSwitcher_titlesContainer = new WeakMap(), _TitleSwitcher_switchStyle = new WeakMap(), _TitleSwitcher_typeSurface = new WeakMap()
 /**
