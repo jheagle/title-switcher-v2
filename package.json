@@ -34,7 +34,7 @@
   },
   "homepage": "https://github.com/jheagle/title-switcher-v2#readme",
   "devDependencies": {
-    "js-build-tools": "^4.0.1"
+    "js-build-tools": "^4.0.4"
   },
   "dependencies": {},
   "files": [

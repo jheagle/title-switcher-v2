@@ -3,7 +3,6 @@
  */
 jest.useFakeTimers()
 import TitleSwitcher from './main'
-import { logObject } from 'js-build-tools/dist/testHelpers'
 
 beforeEach(() => {
   jest.clearAllMocks()
@@ -87,7 +86,7 @@ describe('TitleSwitcher', () => {
   })
 
   test('applies typingEffect by filling typing surface with text followed by cursor', done => {
-    jest.spyOn(global, 'setTimeout');
+    jest.spyOn(global, 'setTimeout')
     expect.assertions(7)
     document.body.innerHTML = '<div class=\'titles\'>\n' +
       '        <h4 style="color:purple"><strong>One</strong></h4>\n' +
@@ -119,11 +118,11 @@ describe('TitleSwitcher', () => {
     // total of 16 timeouts for each title, and ran on two titles
     // grand total of 32 after running both titles
     let expectedTimes = 32
-    expect(setTimeout).toHaveBeenCalledTimes(expectedTimes);
+    expect(setTimeout).toHaveBeenCalledTimes(expectedTimes)
   })
 
   test('applies typingEffect, including adding html', done => {
-    jest.spyOn(global, 'setTimeout');
+    jest.spyOn(global, 'setTimeout')
     expect.assertions(5)
     document.body.innerHTML = '<div class=\'titles\'>\n' +
       '        <h4><strong>One</strong></h4>\n' +
@@ -151,6 +150,6 @@ describe('TitleSwitcher', () => {
     // 8 blinks after complete
     // total of 16 timeouts for each title, and ran on two titles
     // grand total of 32 after running both titles
-    expect(setTimeout).toHaveBeenCalledTimes(32);
+    expect(setTimeout).toHaveBeenCalledTimes(32)
   })
 })
