@@ -963,7 +963,7 @@
           setInternalState(that, {
             type: CONSTRUCTOR_NAME,
             id: id++,
-            frozen: undefined
+            frozen: null
           })
           if (!isNullOrUndefined(iterable)) iterate(iterable, that[ADDER], { that: that, AS_ENTRIES: IS_MAP })
         })
@@ -1011,7 +1011,7 @@
             if (isObject(key)) {
               var data = getWeakData(key)
               if (data === true) return uncaughtFrozenStore(state).get(key)
-              return data ? data[state.id] : undefined
+              if (data) return data[state.id]
             }
           },
           // `WeakMap.prototype.set(key, value)` method
@@ -3446,10 +3446,10 @@
     var store = module.exports = globalThis[SHARED] || defineGlobalProperty(SHARED, {});
 
     (store.versions || (store.versions = [])).push({
-      version: '3.38.0',
+      version: '3.38.1',
       mode: IS_PURE ? 'pure' : 'global',
       copyright: '© 2014-2024 Denis Pushkarev (zloirock.ru)',
-      license: 'https://github.com/zloirock/core-js/blob/v3.38.0/LICENSE',
+      license: 'https://github.com/zloirock/core-js/blob/v3.38.1/LICENSE',
       source: 'https://github.com/zloirock/core-js'
     })
   }, { '../internals/define-global-property': 34, '../internals/global-this': 63, '../internals/is-pure': 81 }],
@@ -3917,7 +3917,7 @@
       var target = state.target
       var index = state.index++
       if (!target || index >= target.length) {
-        state.target = undefined
+        state.target = null
         return createIterResultObject(undefined, true)
       }
       switch (state.kind) {
@@ -4267,6 +4267,7 @@
   (!CORRECT_NEW || MISSED_STICKY || UNSUPPORTED_DOT_ALL || UNSUPPORTED_NCG || fails(function () {
     re2[MATCH] = false
     // RegExp constructor can alter flags and IsRegExp works correct with @@match
+    // eslint-disable-next-line sonar/inconsistent-function-call -- required for testing
     return NativeRegExp(re1) !== re1 || NativeRegExp(re2) === re2 || String(NativeRegExp(re1, 'i')) !== '/a/i'
   }))
 
@@ -4970,6 +4971,7 @@
       var SymbolWrapper = function Symbol () {
         var description = arguments.length < 1 || arguments[0] === undefined ? undefined : toString(arguments[0])
         var result = isPrototypeOf(SymbolPrototype, this)
+        // eslint-disable-next-line sonar/inconsistent-function-call -- ok
           ? new NativeSymbol(description)
         // in Edge 13, String(Symbol(undefined)) === 'Symbol(undefined)'
           : description === undefined ? NativeSymbol() : NativeSymbol(description)
