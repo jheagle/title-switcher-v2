@@ -16,7 +16,7 @@ describe('TitleSwitcher', () => {
     const titleSwitcher = new TitleSwitcher()
     expect(titleSwitcher.titles.length).toBe(0)
     titleSwitcher.startTitles()
-    expect(warn).toBeCalledWith(`No titles found for ''`)
+    expect(warn).toHaveBeenCalledWith(`No titles found for ''`)
     expect(titleSwitcher.active).toBeFalsy()
   })
 
