@@ -9,59 +9,50 @@ declare class TitleSwitcher {
     typingEffect: switchTitleCallback;
     /**
      * Instantiate this as a class to get an instance of TitleSwitcher
-     * @param {string} [titlesContainer=''] - The selector where titles are stored
-     * @param {Function|string} [switchStyle='typingEffect'] - The function or function name for the effect to apply
+     * @param titlesContainer - The selector where titles are stored
+     * @param switchStyle - The function or function name for the effect to apply
      * @constructor
      */
     constructor(titlesContainer?: string, switchStyle?: switchTitleCallback | keyof TitleSwitcher | string);
     /**
      * Retrieve active
-     * @return {boolean}
      */
     get active(): boolean;
     /**
      * Retrieve currentClass
-     * @return {string}
      */
     get currentClass(): string;
     /**
      * Retrieve currentIndex
-     * @return {number}
      */
     get currentIndex(): number;
     /**
      * Retrieve delayEffect
-     * @return {number}
      */
     get delayEffect(): number;
     /**
      * Retrieve delaySwitch
-     * @return {number}
      */
     get delaySwitch(): number;
     /**
      * Retrieve switchStyle
-     * @return {Function}
      */
     get switchStyle(): Function;
     /**
      * Retrieve list of titles DOM elements
-     * @return {Array<HTMLElement>|HTMLCollection}
      */
     get titles(): Array<HTMLElement> | HTMLCollection;
     /**
      * Retrieve typeSurface used
-     * @return {HTMLElement|null}
      */
     get typeSurface(): HTMLElement | null;
     /**
      * This is the function to begin the switching titles
-     * @param {Object} [settings={}]
-     * @param {number} [settings.delaySwitch=400]
-     * @param {number} [settings.delayEffect=200]
-     * @param {boolean} [settings.isRandom=false]
-     * @param {boolean} [settings.immediatePause=false]
-     * @returns {TitleSwitcher}
+     * @param settings
+     * @param settings.delaySwitch
+     * @param settings.delayEffect
+     * @param settings.isRandom
+     * @param settings.immediatePause
      */
     startTitles({ delaySwitch, delayEffect, isRandom, immediatePause }?: {
         delaySwitch?: number;
@@ -79,11 +70,10 @@ declare class TitleSwitcher {
     resume(): void;
     /**
      * This is the core function for switching titles
-     * @param {HTMLElement} currentTitle
-     * @param {Function} callBackFunction
-     * @param {TitleSwitcher} self
-     * @param {boolean} [runOnce=false]
-     * @returns {TitleSwitcher}
+     * @param currentTitle
+     * @param callBackFunction
+     * @param self
+     * @param runOnce
      */
     switchTitle(currentTitle: Element, callBackFunction: switchTitleCallback, self: this, runOnce?: boolean): TitleSwitcher;
 }

@@ -2,8 +2,11 @@
   "browser": {
     "name": "titleSwitcher"
   },
-  "readme": {
-    "from": "dist/**/!(*.min).js"
+  "docs": {
+    "enabled": true,
+    "from": "src",
+    "index": "MAIN.md",
+    "to": "../joshuaheagle.local/projects/title-switcher/docs"
   },
   "typescript": {
     "config": "tsconfig.json",

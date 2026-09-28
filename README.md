@@ -61,3 +61,17 @@ Live example at https://joshuaheagle.com/projects/title-switcher. Enjoy!
   randomTitles.startTitles({ isRandom: true })
 ```
 
+## Documentation
+
+The reference for the `TitleSwitcher` class is in [`docs/`](https://joshuaheagle.com/projects/title-switcher/docs/index.html) (or open `docs/index.html` locally), generated from the TypeScript source in `src/main.ts`.
+
+## Development
+
+```shell
+npm install
+npm test          # the tests
+npm run typecheck # the types
+npm run build     # dist/, browser/ and docs/
+npm run docs      # only the documentation
+```
+
