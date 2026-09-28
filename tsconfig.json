@@ -1,12 +1,18 @@
 {
-  "files": [
-  "src/**/*.ts"
-],
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/**/*.test.*"
+  ],
   "compilerOptions": {
-  "noImplicitAny": true,
+    "noImplicitAny": true,
     "target": "es2017",
     "module": "CommonJS",
     "moduleResolution": "node",
-    "declaration": true
-}
+    "ignoreDeprecations": "6.0",
+    "declaration": true,
+    "strictNullChecks": false,
+    "strictFunctionTypes": false
+  }
 }

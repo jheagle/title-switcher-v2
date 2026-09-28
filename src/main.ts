@@ -27,8 +27,8 @@ class TitleSwitcher {
 
   /**
    * Instantiate this as a class to get an instance of TitleSwitcher
-   * @param {string} [titlesContainer=''] - The selector where titles are stored
-   * @param {Function|string} [switchStyle='typingEffect'] - The function or function name for the effect to apply
+   * @param titlesContainer - The selector where titles are stored
+   * @param switchStyle - The function or function name for the effect to apply
    * @constructor
    */
   constructor (titlesContainer: string = '', switchStyle: switchTitleCallback | keyof TitleSwitcher | string = 'typingEffect') {
@@ -51,7 +51,6 @@ class TitleSwitcher {
 
   /**
    * Retrieve active
-   * @return {boolean}
    */
   get active (): boolean {
     return this.#active
@@ -59,7 +58,6 @@ class TitleSwitcher {
 
   /**
    * Retrieve currentClass
-   * @return {string}
    */
   get currentClass (): string {
     return this.#currentClass
@@ -67,7 +65,6 @@ class TitleSwitcher {
 
   /**
    * Retrieve currentIndex
-   * @return {number}
    */
   get currentIndex (): number {
     return this.#currentIndex
@@ -75,7 +72,6 @@ class TitleSwitcher {
 
   /**
    * Retrieve delayEffect
-   * @return {number}
    */
   get delayEffect (): number {
     return this.#delayEffect
@@ -83,7 +79,6 @@ class TitleSwitcher {
 
   /**
    * Retrieve delaySwitch
-   * @return {number}
    */
   get delaySwitch (): number {
     return this.#delaySwitch
@@ -91,7 +86,6 @@ class TitleSwitcher {
 
   /**
    * Retrieve switchStyle
-   * @return {Function}
    */
   get switchStyle (): Function {
     return this.#switchStyle
@@ -99,7 +93,6 @@ class TitleSwitcher {
 
   /**
    * Retrieve list of titles DOM elements
-   * @return {Array<HTMLElement>|HTMLCollection}
    */
   get titles (): Array<HTMLElement> | HTMLCollection {
     return this.#titles
@@ -107,7 +100,6 @@ class TitleSwitcher {
 
   /**
    * Retrieve typeSurface used
-   * @return {HTMLElement|null}
    */
   get typeSurface (): HTMLElement | null {
     return this.#typeSurface
@@ -115,12 +107,11 @@ class TitleSwitcher {
 
   /**
    * This is the function to begin the switching titles
-   * @param {Object} [settings={}]
-   * @param {number} [settings.delaySwitch=400]
-   * @param {number} [settings.delayEffect=200]
-   * @param {boolean} [settings.isRandom=false]
-   * @param {boolean} [settings.immediatePause=false]
-   * @returns {TitleSwitcher}
+   * @param settings
+   * @param settings.delaySwitch
+   * @param settings.delayEffect
+   * @param settings.isRandom
+   * @param settings.immediatePause
    */
   startTitles ({ delaySwitch = 400, delayEffect = 200, isRandom = false, immediatePause = false }: {
     delaySwitch?: number;
@@ -189,11 +180,10 @@ class TitleSwitcher {
 
   /**
    * This is the core function for switching titles
-   * @param {HTMLElement} currentTitle
-   * @param {Function} callBackFunction
-   * @param {TitleSwitcher} self
-   * @param {boolean} [runOnce=false]
-   * @returns {TitleSwitcher}
+   * @param currentTitle
+   * @param callBackFunction
+   * @param self
+   * @param runOnce
    */
   switchTitle (currentTitle: Element, callBackFunction: switchTitleCallback, self: this, runOnce: boolean = false): TitleSwitcher {
     self = self || this
@@ -244,9 +234,8 @@ class TitleSwitcher {
 
 /**
  * This is a helper function to improve the default 'typingEffect'
- * @param {boolean} blinkOn
- * @param {TitleSwitcher} self
- * @return {TitleSwitcher}
+ * @param blinkOn
+ * @param self
  */
 TitleSwitcher.prototype.cursorBlink = (blinkOn: boolean, self: TitleSwitcher): TitleSwitcher => {
   // display cursor effect
@@ -264,11 +253,10 @@ TitleSwitcher.prototype.cursorBlink = (blinkOn: boolean, self: TitleSwitcher): T
  * This is the default and example of an effect being implemented when Titles are switched
  * These functions take the currentElement in focus, the switchTitle function as a callback
  * and an instance of the TitleSwitcher
- * @param {HTMLElement} domObject
- * @param {Function} callBackFunction
- * @param {TitleSwitcher} self
- * @param {boolean} [runOnce=false]
- * @returns {TitleSwitcher}
+ * @param domObject
+ * @param callBackFunction
+ * @param self
+ * @param runOnce
  */
 TitleSwitcher.prototype.typingEffect = (domObject: HTMLElement | Element, callBackFunction: switchStyleCallback, self: TitleSwitcher, runOnce: boolean = false): TitleSwitcher => {
   self = self || this

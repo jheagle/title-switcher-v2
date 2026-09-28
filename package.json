@@ -1,16 +1,16 @@
 {
   "name": "title-switcher",
-  "version": "2.1.14",
+  "version": "2.1.15",
   "description": "Add typing effect to titles and also switch through several titles.",
   "main": "dist/main.min.js",
   "types": "dist/main.d.ts",
   "scripts": {
     "build": "gulp build",
     "dev": "gulp",
-    "htmldocs": "jsdoc -R MAIN.md -c ./.jsdoc.conf.js -d docs",
-    "readme": "gulp readme",
+    "docs": "gulp docs",
     "resolutions": "npx npm-force-resolutions",
     "test": "gulp testFull",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
     "test:quick": "gulp testQuick",
     "watch": "gulp watchFull",
     "watch:test": "gulp watchTest"
@@ -34,7 +34,8 @@
   },
   "homepage": "https://github.com/jheagle/title-switcher-v2#readme",
   "devDependencies": {
-    "js-build-tools": "^5.0.0"
+    "js-build-tools": "^5.3.2",
+    "typedoc": "^0.28.20"
   },
   "files": [
     "dist",
@@ -44,8 +45,5 @@
     "env": [
       "jest"
     ]
-  },
-  "directories": {
-    "doc": "docs"
   }
 }
