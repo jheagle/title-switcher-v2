@@ -26,28 +26,28 @@ require('core-js/modules/esnext.weak-map.delete-all.js')
 require('core-js/modules/web.dom-collections.for-each.js')
 require('core-js/modules/web.dom-collections.iterator.js')
 require('core-js/modules/web.timers.js')
-var _this = void 0
+const _this = void 0
 function _classCallCheck (a, n) { if (!(a instanceof n)) throw new TypeError('Cannot call a class as a function') }
-function _defineProperties (e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, 'value' in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o) } }
+function _defineProperties (e, r) { for (let t = 0; t < r.length; t++) { const o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, 'value' in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o) } }
 function _createClass (e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, 'prototype', { writable: !1 }), e }
-function _toPropertyKey (t) { var i = _toPrimitive(t, 'string'); return _typeof(i) == 'symbol' ? i : i + '' }
-function _toPrimitive (t, r) { if (_typeof(t) != 'object' || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || 'default'); if (_typeof(i) != 'object') return i; throw new TypeError('@@toPrimitive must return a primitive value.') } return (r === 'string' ? String : Number)(t) }
-var __classPrivateFieldSet = void 0 && (void 0).__classPrivateFieldSet || function (receiver, state, value, kind, f) {
+function _toPropertyKey (t) { const i = _toPrimitive(t, 'string'); return _typeof(i) == 'symbol' ? i : i + '' }
+function _toPrimitive (t, r) { if (_typeof(t) != 'object' || !t) return t; const e = t[Symbol.toPrimitive]; if (void 0 !== e) { const i = e.call(t, r || 'default'); if (_typeof(i) != 'object') return i; throw new TypeError('@@toPrimitive must return a primitive value.') } return (r === 'string' ? String : Number)(t) }
+const __classPrivateFieldSet = void 0 && (void 0).__classPrivateFieldSet || function (receiver, state, value, kind, f) {
   if (kind === 'm') throw new TypeError('Private method is not writable')
   if (kind === 'a' && !f) throw new TypeError('Private accessor was defined without a setter')
   if (typeof state === 'function' ? receiver !== state || !f : !state.has(receiver)) throw new TypeError('Cannot write private member to an object whose class did not declare it')
   return kind === 'a' ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value
 }
-var __classPrivateFieldGet = void 0 && (void 0).__classPrivateFieldGet || function (receiver, state, kind, f) {
+const __classPrivateFieldGet = void 0 && (void 0).__classPrivateFieldGet || function (receiver, state, kind, f) {
   if (kind === 'a' && !f) throw new TypeError('Private accessor was defined without a getter')
   if (typeof state === 'function' ? receiver !== state || !f : !state.has(receiver)) throw new TypeError('Cannot read private member from an object whose class did not declare it')
   return kind === 'm' ? f : kind === 'a' ? f.call(receiver) : f ? f.value : state.get(receiver)
 }
-var _TitleSwitcher_active, _TitleSwitcher_currentClass, _TitleSwitcher_currentIndex, _TitleSwitcher_delayEffect, _TitleSwitcher_delaySwitch, _TitleSwitcher_isRandom, _TitleSwitcher_titles, _TitleSwitcher_titlesContainer, _TitleSwitcher_switchStyle, _TitleSwitcher_typeSurface
+let _TitleSwitcher_active, _TitleSwitcher_currentClass, _TitleSwitcher_currentIndex, _TitleSwitcher_delayEffect, _TitleSwitcher_delaySwitch, _TitleSwitcher_isRandom, _TitleSwitcher_titles, _TitleSwitcher_titlesContainer, _TitleSwitcher_switchStyle, _TitleSwitcher_typeSurface
 Object.defineProperty(exports, '__esModule', {
   value: true
 })
-var TitleSwitcher = /* #__PURE__ */(function () {
+const TitleSwitcher = /* #__PURE__ */(function () {
   /**
    * Instantiate this as a class to get an instance of TitleSwitcher
    * @param {string} [titlesContainer=''] - The selector where titles are stored
@@ -55,8 +55,8 @@ var TitleSwitcher = /* #__PURE__ */(function () {
    * @constructor
    */
   function TitleSwitcher () {
-    var titlesContainer = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ''
-    var switchStyle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'typingEffect'
+    const titlesContainer = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : ''
+    const switchStyle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'typingEffect'
     _classCallCheck(this, TitleSwitcher)
     _TitleSwitcher_active.set(this, false)
     _TitleSwitcher_currentClass.set(this, 'displayTitle')
@@ -77,7 +77,7 @@ var TitleSwitcher = /* #__PURE__ */(function () {
     }
     __classPrivateFieldSet(this, _TitleSwitcher_titlesContainer, titlesContainer, 'f')
     __classPrivateFieldSet(this, _TitleSwitcher_titles, [], 'f')
-    var foundContainers = titlesContainer ? document.querySelectorAll(titlesContainer) : []
+    const foundContainers = titlesContainer ? document.querySelectorAll(titlesContainer) : []
     if (foundContainers && foundContainers[0]) {
       __classPrivateFieldSet(this, _TitleSwitcher_titlesContainer, foundContainers[0], 'f')
       __classPrivateFieldSet(this, _TitleSwitcher_titles, foundContainers[0].children, 'f')
@@ -167,16 +167,16 @@ var TitleSwitcher = /* #__PURE__ */(function () {
   }, {
     key: 'startTitles',
     value: function startTitles () {
-      var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
-      var _ref$delaySwitch = _ref.delaySwitch
-      var delaySwitch = _ref$delaySwitch === void 0 ? 400 : _ref$delaySwitch
-      var _ref$delayEffect = _ref.delayEffect
-      var delayEffect = _ref$delayEffect === void 0 ? 200 : _ref$delayEffect
-      var _ref$isRandom = _ref.isRandom
-      var isRandom = _ref$isRandom === void 0 ? false : _ref$isRandom
-      var _ref$immediatePause = _ref.immediatePause
-      var immediatePause = _ref$immediatePause === void 0 ? false : _ref$immediatePause
-      var typeSurface = 'typeSurface'
+      const _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
+      const _ref$delaySwitch = _ref.delaySwitch
+      const delaySwitch = _ref$delaySwitch === void 0 ? 400 : _ref$delaySwitch
+      const _ref$delayEffect = _ref.delayEffect
+      const delayEffect = _ref$delayEffect === void 0 ? 200 : _ref$delayEffect
+      const _ref$isRandom = _ref.isRandom
+      const isRandom = _ref$isRandom === void 0 ? false : _ref$isRandom
+      const _ref$immediatePause = _ref.immediatePause
+      const immediatePause = _ref$immediatePause === void 0 ? false : _ref$immediatePause
+      const typeSurface = 'typeSurface'
       __classPrivateFieldSet(this, _TitleSwitcher_delaySwitch, delaySwitch, 'f')
       __classPrivateFieldSet(this, _TitleSwitcher_delayEffect, delayEffect, 'f')
       __classPrivateFieldSet(this, _TitleSwitcher_isRandom, isRandom, 'f')
@@ -189,14 +189,14 @@ var TitleSwitcher = /* #__PURE__ */(function () {
       if (__classPrivateFieldGet(this, _TitleSwitcher_isRandom, 'f')) {
         __classPrivateFieldSet(this, _TitleSwitcher_currentIndex, Math.round(Math.random() * (__classPrivateFieldGet(this, _TitleSwitcher_titles, 'f').length - 2)) + 1, 'f')
       }
-      var currentTitle = __classPrivateFieldGet(this, _TitleSwitcher_titles, 'f')[__classPrivateFieldGet(this, _TitleSwitcher_currentIndex, 'f')]
+      const currentTitle = __classPrivateFieldGet(this, _TitleSwitcher_titles, 'f')[__classPrivateFieldGet(this, _TitleSwitcher_currentIndex, 'f')]
       if (currentTitle.classList) {
         currentTitle.classList.add(__classPrivateFieldGet(this, _TitleSwitcher_currentClass, 'f'))
       } else {
         currentTitle.className += ' ' + __classPrivateFieldGet(this, _TitleSwitcher_currentClass, 'f')
       }
       // @ts-ignore The Node returned is of type Element, or it should be
-      var typeElement = __classPrivateFieldGet(this, _TitleSwitcher_titles, 'f')[0].cloneNode(true)
+      const typeElement = __classPrivateFieldGet(this, _TitleSwitcher_titles, 'f')[0].cloneNode(true)
       if (typeElement.classList) {
         typeElement.classList.add(typeSurface)
       } else {
@@ -247,11 +247,11 @@ var TitleSwitcher = /* #__PURE__ */(function () {
   }, {
     key: 'switchTitle',
     value: function switchTitle (currentTitle, callBackFunction, self) {
-      var runOnce = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false
+      const runOnce = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false
       self = self || this
-      var currentIndex = 1
-      var size = __classPrivateFieldGet(self, _TitleSwitcher_titles, 'f').length
-      for (var i = 1; i < size; ++i) {
+      let currentIndex = 1
+      const size = __classPrivateFieldGet(self, _TitleSwitcher_titles, 'f').length
+      for (let i = 1; i < size; ++i) {
         if (__classPrivateFieldGet(self, _TitleSwitcher_titles, 'f')[i] === currentTitle) {
           currentIndex = i
           break
@@ -261,12 +261,14 @@ var TitleSwitcher = /* #__PURE__ */(function () {
         __classPrivateFieldSet(self, _TitleSwitcher_currentIndex, currentIndex, 'f')
         return self
       }
-      var maxIndex = __classPrivateFieldGet(self, _TitleSwitcher_titles, 'f').length - 1
-      var nextIndex = 1
+      const maxIndex = __classPrivateFieldGet(self, _TitleSwitcher_titles, 'f').length - 1
+      let nextIndex = 1
       if (maxIndex === 1) {
-        return callBackFunction(currentTitle, runOnce ? function () {
-          return self
-        } : self.switchTitle, self, runOnce)
+        return callBackFunction(currentTitle, runOnce
+          ? function () {
+            return self
+          }
+          : self.switchTitle, self, runOnce)
       }
       if (__classPrivateFieldGet(self, _TitleSwitcher_isRandom, 'f')) {
         if (!self.typeSurface.textContent.trim()) {
@@ -281,7 +283,7 @@ var TitleSwitcher = /* #__PURE__ */(function () {
         }
         nextIndex = currentIndex < maxIndex ? currentIndex + 1 : 1
       }
-      var nextTitle = __classPrivateFieldGet(self, _TitleSwitcher_titles, 'f')[nextIndex]
+      const nextTitle = __classPrivateFieldGet(self, _TitleSwitcher_titles, 'f')[nextIndex]
       if (currentTitle.classList) {
         currentTitle.classList.remove(self.currentClass)
       } else {
@@ -292,9 +294,11 @@ var TitleSwitcher = /* #__PURE__ */(function () {
       } else {
         nextTitle.className += ' ' + self.currentClass
       }
-      return callBackFunction(nextTitle, runOnce ? function () {
-        return self
-      } : self.switchTitle, self, runOnce)
+      return callBackFunction(nextTitle, runOnce
+        ? function () {
+          return self
+        }
+        : self.switchTitle, self, runOnce)
     }
   }])
 }())
@@ -327,19 +331,19 @@ TitleSwitcher.prototype.cursorBlink = function (blinkOn, self) {
  * @returns {TitleSwitcher}
  */
 TitleSwitcher.prototype.typingEffect = function (domObject, callBackFunction, self) {
-  var runOnce = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false
+  const runOnce = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false
   self = self || _this
-  var size = self.titles.length
-  var currentIndex = 0
-  for (var i = 1; i < size; ++i) {
+  const size = self.titles.length
+  let currentIndex = 0
+  for (let i = 1; i < size; ++i) {
     if (self.titles[i] === domObject) {
       currentIndex = i
       break
     }
   }
   domObject = domObject || self.titles[currentIndex + 1]
-  var blinkOn = true
-  var numBlinks = 4
+  let blinkOn = true
+  const numBlinks = 4
   if (self.typeSurface.hasAttribute('style')) {
     self.typeSurface.removeAttribute('style')
   }
@@ -350,7 +354,7 @@ TitleSwitcher.prototype.typingEffect = function (domObject, callBackFunction, se
   self.typeSurface.innerHTML = ''
   self.typeSurface.style.display = 'block'
   // Initialize with a few cursor blinks
-  for (var _i = 0; _i < numBlinks; ++_i) {
+  for (let _i = 0; _i < numBlinks; ++_i) {
     setTimeout(function () {
       self.cursorBlink(blinkOn, self)
       blinkOn = !blinkOn
@@ -370,14 +374,16 @@ TitleSwitcher.prototype.typingEffect = function (domObject, callBackFunction, se
           // Replace html with old html on last letter, so we get all the html formatting applied
           self.typeSurface.innerHTML = domObject.innerHTML + '<span style="font-weight: normal; color: black; text-decoration: none">&#124;</span>'
           // Run the blinking cursor two times the regular time in order to let the text be readable before switching
-          var _loop = function _loop (_j) {
+          const _loop = function _loop (_j) {
             setTimeout(function () {
               --_j
               self.cursorBlink(blinkOn, self)
               if (_j === 0) {
-                callBackFunction(domObject, runOnce ? function () {
-                  return self
-                } : self.switchStyle, self, runOnce)
+                callBackFunction(domObject, runOnce
+                  ? function () {
+                    return self
+                  }
+                  : self.switchStyle, self, runOnce)
               }
             }, _j * self.delaySwitch)
             j = _j
