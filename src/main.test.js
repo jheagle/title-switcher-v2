@@ -42,6 +42,31 @@ describe('TitleSwitcher', () => {
     expect(titleSwitcher.titles[2].style.display).toBe('none')
   })
 
+  test('random mode leaves exactly one title carrying the displayTitle class after the first switch', () => {
+    document.body.innerHTML = '<div class=\'titles\'>\n' +
+      '        <h4>One</h4>\n' +
+      '        <h4>Two</h4>\n' +
+      '        <h4>Three</h4>\n' +
+      '        <h4>Four</h4>\n' +
+      '        <h4>Five</h4>\n' +
+      '        <h4>Six</h4>\n' +
+      '    </div>'
+    // First Math.random() call (inside startTitles): Math.round(0.5 * (6 - 2)) + 1 === 3, picking the pre-shift
+    // index for 'Four' - before typeSurface's insertion shifts every title's real index up by one.
+    // Second call (inside the switchTitle it triggers immediately after): Math.round(0.2 * 5) + 1 === 2, picking
+    // 'Two' as the next title. Without the fix, startTitles hands switchTitle the title now sitting at the stale,
+    // pre-shift index 3 ('Three') instead of the title actually tagged ('Four'), so 'displayTitle' never gets
+    // removed from 'Four' while 'Two' also gets it added - two titles end up tagged instead of one.
+    jest.spyOn(Math, 'random').mockReturnValueOnce(0.5).mockReturnValueOnce(0.2)
+    const titleSwitcher = new TitleSwitcher('.titles')
+    titleSwitcher.startTitles({ isRandom: true })
+    Math.random.mockRestore()
+
+    const tagged = Array.from(titleSwitcher.titles).filter(el => el.classList.contains('displayTitle'))
+    expect(tagged).toHaveLength(1)
+    expect(tagged[0].textContent).toBe('Two')
+  })
+
   test('cursor blink adds and removes cursor', () => {
     expect.assertions(5)
     document.body.innerHTML = '<div class=\'titles\'>\n' +
