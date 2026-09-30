@@ -158,7 +158,11 @@ class TitleSwitcher {
     Array.prototype.forEach.call(this.#titles, function (title: HTMLElement) {
       title.style.display = 'none'
     })
-    return this.switchTitle(this.#titles[this.#currentIndex], this.#switchStyle, this)
+    // currentTitle, not this.#titles[this.#currentIndex]: inserting typeElement above shifted every later index by
+    // one, so #currentIndex (computed before that insert) no longer points at the title it was set for - switchTitle
+    // would remove the 'displayTitle' class from whatever title now happens to sit at that stale index instead of
+    // from currentTitle, leaving more than one title carrying the class at once.
+    return this.switchTitle(currentTitle, this.#switchStyle, this)
   }
 
   /**
