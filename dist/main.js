@@ -1,7 +1,5 @@
 'use strict'
 
-require('core-js/modules/esnext.iterator.constructor.js')
-require('core-js/modules/esnext.iterator.for-each.js')
 require('core-js/modules/esnext.weak-map.delete-all.js')
 const __classPrivateFieldSet = void 0 && (void 0).__classPrivateFieldSet || function (receiver, state, value, kind, f) {
   if (kind === 'm') throw new TypeError('Private method is not writable')
@@ -252,6 +250,39 @@ TitleSwitcher.prototype.cursorBlink = (blinkOn, self) => {
   return self
 }
 /**
+ * Build the markup for the first `remaining` characters of domObject's text, keeping whichever
+ * of its nested tags (em, strong, ...) that content falls under. This lets the typing effect
+ * reveal a title's formatting as each character is typed, instead of only applying it once the
+ * whole tag has been typed out.
+ * @param domObject
+ * @param remaining
+ */
+const typedPartialHtml = (domObject, remaining) => {
+  let html = ''
+  const children = Array.prototype.slice.call(domObject.childNodes)
+  for (let i = 0; i < children.length && remaining > 0; ++i) {
+    const child = children[i]
+    if (child.nodeType === 3) {
+      const text = child.textContent || ''
+      const take = Math.min(remaining, text.length)
+      html += text.slice(0, take)
+      remaining -= take
+    } else if (child.nodeType === 1) {
+      const result = typedPartialHtml(child, remaining)
+      if (result.html) {
+        const wrapper = child.cloneNode(false)
+        wrapper.innerHTML = result.html
+        html += wrapper.outerHTML
+      }
+      remaining = result.remaining
+    }
+  }
+  return {
+    html,
+    remaining
+  }
+}
+/**
  * This is the default and example of an effect being implemented when Titles are switched
  * These functions take the currentElement in focus, the switchTitle function as a callback
  * and an instance of the TitleSwitcher
@@ -293,11 +324,13 @@ TitleSwitcher.prototype.typingEffect = (domObject, callBackFunction, self, runOn
     // Empty the surface, and display the cursor (cursor is always solid while typing / not flashing)
     self.typeSurface.innerHTML = ''
     self.cursorBlink(true, self)
-    // Copy each letter from the current title (text only)
-    domObject.textContent.split('').forEach((letter, i) => {
+    // Copy each letter from the current title, keeping whichever tags (em, strong, ...) it falls under
+    const totalLength = domObject.textContent.length
+    for (let i = 0; i < totalLength; ++i) {
       setTimeout(() => {
-        // Remove the previous cursor, place the new letter, then append a formatted cursor on the end
-        self.typeSurface.innerHTML = self.typeSurface.textContent.replace('|', '') + letter + '<span style="font-weight: normal; color: black; text-decoration: none">&#124;</span>'
+        // Reveal one more character, wrapped in whatever tags its position in the title falls under,
+        // then append a formatted cursor on the end
+        self.typeSurface.innerHTML = typedPartialHtml(domObject, i + 1).html + '<span style="font-weight: normal; color: black; text-decoration: none">&#124;</span>'
         // If the text content equals the title content with a cursor appended then we reached the end.
         if (domObject.textContent + '|' === self.typeSurface.textContent) {
           // Replace html with old html on last letter, so we get all the html formatting applied
@@ -314,7 +347,7 @@ TitleSwitcher.prototype.typingEffect = (domObject, callBackFunction, self, runOn
           }
         }
       }, i * self.delayEffect)
-    })
+    }
   }, numBlinks * self.delaySwitch)
   return self
 }

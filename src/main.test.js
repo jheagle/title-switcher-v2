@@ -152,4 +152,22 @@ describe('TitleSwitcher', () => {
     // grand total of 32 after running both titles
     expect(setTimeout).toHaveBeenCalledTimes(32)
   })
+
+  test('typingEffect reveals inline tags as each falls under them, not only once fully typed', () => {
+    document.body.innerHTML = '<div class=\'titles\'>\n' +
+      '        <h4>Say <em>hello</em> world</h4>\n' +
+      '        <h4>Two</h4>\n' +
+      '    </div>'
+    const titleSwitcher = new TitleSwitcher('.titles')
+    titleSwitcher.startTitles({ immediatePause: true })
+    titleSwitcher.typingEffect(titleSwitcher.titles[1], () => {}, titleSwitcher, true)
+    jest.advanceTimersByTime(4 * 400)
+    // partway into typing "hello" - the <em> should already be open around whatever has been typed
+    // of it so far, not still plain text waiting for the whole word to finish
+    jest.advanceTimersByTime('Say hel'.length * 200)
+    expect(titleSwitcher.typeSurface.innerHTML).toMatch(/^Say <em>hel{1,2}<\/em>/)
+    // finish typing "hello" - the full word should be wrapped, not just appended as plain text
+    jest.advanceTimersByTime('lo'.length * 200)
+    expect(titleSwitcher.typeSurface.innerHTML).toContain('<em>hello</em>')
+  })
 })
