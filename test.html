@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>title-switcher test</title>
+    <script src="./browser/titleSwitcher.js"></script>
+    <style>
+        .hideTitle {
+            display: none;
+        }
+
+        .displayTitle {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<h1>title-switcher local test page</h1>
+<p>Loads the real built bundle (<code>./browser/titleSwitcher.js</code>) directly from this repo - run
+    <code>npm run build</code> first if it's out of date.</p>
+
+<h2>Sequential</h2>
+<div class="titles">
+    <h4 class="hideTitle displayTitle" style="color: #be1010;">I built this <em>superb</em> plug-in.</h4>
+    <h4 class="hideTitle" style="color: #1414af;"><strong>TitleSwitcher</strong> is great to display a
+        typing effect.</h4>
+    <h4 class="hideTitle"
+        style="color: #af4e08; text-decoration: underline;">Feel free to contribute and
+        use this plug-in.</h4>
+    <h4 class="hideTitle" style="color: #0c710c;">You can find more projects on
+        <a href="https://github.com/jheagle" target="_blank">my GitHub</a>.</h4>
+</div>
+
+<h2>Random</h2>
+<div class="random-titles">
+    <h4 class="hideTitle displayTitle">Architect</h4>
+    <h4 class="hideTitle">Build</h4>
+    <h4 class="hideTitle">Refactor</h4>
+    <h4 class="hideTitle">Ship</h4>
+    <h4 class="hideTitle">Scale</h4>
+    <h4 class="hideTitle">Debug</h4>
+    <h4 class="hideTitle">Mentor</h4>
+    <h4 class="hideTitle">Deliver</h4>
+</div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        console.log(TitleSwitcher, 'TitleSwitcher loaded')
+        const sequential = new TitleSwitcher('.titles', 'typingEffect')
+        sequential.startTitles({ isRandom: false, delaySwitch: 400, delayEffect: 100 })
+        const random = new TitleSwitcher('.random-titles', 'typingEffect')
+        random.startTitles({ isRandom: true })
+    })
+</script>
+</body>
+</html>
