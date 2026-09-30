@@ -67,6 +67,28 @@ describe('TitleSwitcher', () => {
     expect(tagged[0].textContent).toBe('Two')
   })
 
+  test('a whitespace run where the title wraps onto a new line in the source does not stall the typing effect one tick per character', () => {
+    document.body.innerHTML = '<div class=\'titles\'>\n' +
+      '        <h4>Some text with a\n' +
+      '            long whitespace run</h4>\n' +
+      '        <h4>Two</h4>\n' +
+      '    </div>'
+    const titleSwitcher = new TitleSwitcher('.titles')
+    titleSwitcher.startTitles({ immediatePause: true })
+    titleSwitcher.typingEffect(titleSwitcher.titles[1], () => {}, titleSwitcher, true)
+    jest.advanceTimersByTime(4 * 400) // initial blinks
+
+    const rawLength = titleSwitcher.titles[1].textContent.length
+    const collapsedLength = titleSwitcher.titles[1].textContent.replace(/\s+/g, ' ').length
+    // sanity check: the markup above really does contain a multi-character whitespace run to collapse
+    expect(rawLength).toBeGreaterThan(collapsedLength)
+
+    // one tick per collapsed unit should be enough to finish typing - a stalled implementation would still be
+    // stuck mid-whitespace-run here, several ticks short of the raw character count
+    jest.advanceTimersByTime(collapsedLength * 200)
+    expect(titleSwitcher.typeSurface.textContent).toBe(titleSwitcher.titles[1].textContent + '|')
+  })
+
   test('cursor blink adds and removes cursor', () => {
     expect.assertions(5)
     document.body.innerHTML = '<div class=\'titles\'>\n' +
