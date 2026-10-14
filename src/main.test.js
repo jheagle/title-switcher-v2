@@ -16,7 +16,7 @@ describe('TitleSwitcher', () => {
     const titleSwitcher = new TitleSwitcher()
     expect(titleSwitcher.titles.length).toBe(0)
     titleSwitcher.startTitles()
-    expect(warn).toHaveBeenCalledWith(`No titles found for ''`)
+    expect(warn).toHaveBeenCalledWith('No titles found for \'\'')
     expect(titleSwitcher.active).toBeFalsy()
   })
 
@@ -164,7 +164,7 @@ describe('TitleSwitcher', () => {
     // 8 blinks after complete
     // total of 16 timeouts for each title, and ran on two titles
     // grand total of 32 after running both titles
-    let expectedTimes = 32
+    const expectedTimes = 32
     expect(setTimeout).toHaveBeenCalledTimes(expectedTimes)
   })
 
