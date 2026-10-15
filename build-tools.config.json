@@ -2,6 +2,12 @@
   "browser": {
     "name": "titleSwitcher"
   },
+  "copyFiles": [
+    {
+      "from": "browser/*.js",
+      "to": "../joshuaheagle.local/projects/title-switcher/browser"
+    }
+  ],
   "docs": {
     "enabled": true,
     "from": "src",
