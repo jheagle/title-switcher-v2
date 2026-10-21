@@ -4,6 +4,7 @@ export {
   defaultCmd as default,
   docs,
   gulpConfig,
+  lint,
   readme,
   testFull,
   testQuick,
