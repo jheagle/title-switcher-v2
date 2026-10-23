@@ -12,7 +12,9 @@
     "enabled": true,
     "from": "src",
     "index": "MAIN.md",
-    "to": "../joshuaheagle.local/projects/title-switcher/docs"
+    "to": "../joshuaheagle.local/projects/title-switcher/docs",
+    "inBuild": false,
+    "gitRevision": "main"
   },
   "typescript": {
     "config": "tsconfig.json",
